@@ -1,0 +1,85 @@
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar-menu > li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.sidebar-menu > li > a {
+    padding: 12px 5px 12px 15px;
+    display: block;
+}
+.sidebar-menu > li > a > .fa,
+.sidebar-menu > li > a > .glyphicon,
+.sidebar-menu > li > a > .ion {
+    width: 20px;
+}
+.sidebar-menu > li .label,
+.sidebar-menu > li .badge {
+    margin-right: 5px;
+}
+.sidebar-menu > li .badge {
+    margin-top: 3px;
+}
+.sidebar-menu li.header {
+    padding: 10px 25px 10px 15px;
+    font-size: 12px;
+}
+.sidebar-menu li > a > .fa-angle-left,
+.sidebar-menu li > a > .pull-right-container > .fa-angle-left {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: 10px;
+    -webkit-transition: transform 0.5s ease;
+    -o-transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
+}
+.sidebar-menu li > a > .fa-angle-left {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -8px;
+}
+.sidebar-menu .menu-open > a > .fa-angle-left,
+.sidebar-menu .menu-open > a > .pull-right-container > .fa-angle-left {
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.sidebar-menu .active > .treeview-menu {
+    display: block;
+}
+.treeview-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px;
+}
+.treeview-menu .treeview-menu {
+    padding-left: 20px;
+}
+.treeview-menu > li {
+    margin: 0;
+}
+.treeview-menu > li > a {
+    padding: 5px 5px 5px 15px;
+    display: block;
+    font-size: 14px;
+}
+.treeview-menu > li > a > .fa,
+.treeview-menu > li > a > .glyphicon,
+.treeview-menu > li > a > .ion {
+    width: 20px;
+}
+.treeview-menu > li > a > .pull-right-container > .fa-angle-left,
+.treeview-menu > li > a > .pull-right-container > .fa-angle-down,
+.treeview-menu > li > a > .fa-angle-left,
+.treeview-menu > li > a > .fa-angle-down {
+    width: auto;
+}

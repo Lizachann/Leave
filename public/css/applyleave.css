@@ -1,0 +1,79 @@
+.apply-form{
+.card{
+    padding: 45px 70px;
+@media (max-width: 767.98px) {
+    padding: 40px 20px;
+}
+
+}
+.card-body{
+.form-header{
+    margin-bottom: 50px;
+h3{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0;
+}
+p{
+    color: #9297a0;
+}
+}
+.form-wrap{
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 25px;
+}
+.captcha-wrap{
+    margin-top: -110px;
+    text-align: left;
+    margin-right: auto;
+    padding: 0 7px;
+@media (max-width: 767.98px){
+    margin-top: auto;
+    text-align: center;
+}
+}
+.bnt-wrap{
+    margin-left: auto;
+    padding: 0;
+    text-align: right;
+@media (max-width: 767.98px){
+    text-align: center;
+}
+}
+.btn-submit{
+    background: #d01922;
+    padding: 15px 110px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+.custom-file{
+    height: 60px;
+&:hover{
+     cursor: pointer;
+ }
+}
+.custom-file-input{
+    height: 100%;
+}
+.custom-file-label{
+    background-color: #dedede;
+    border: 1px solid #bebebe;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.custom-file-label::after{
+    visibility: hidden;
+}
+}
+}
+}
