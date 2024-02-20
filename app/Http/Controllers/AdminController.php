@@ -31,8 +31,8 @@ class AdminController extends Controller
     public function storeAddStaff(Request $request)
     {
         $validatedData = $request->validate([
-            'FirstName' => ['required', 'string', 'max:255'],
-            'LastName' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
 //            'password' => ['required', 'confirmed', Rules\Password::defaults()],
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
@@ -40,31 +40,31 @@ class AdminController extends Controller
             'email' => 'required|string|max:255|email|unique:users,email',
             'password' => 'required|string|min:4',
 
-            'Staff_ID' => ['required', 'string', 'max:255'],
-            'Position_Staff' => ['required', 'string', 'max:255'],
-            'Gender' => ['required', 'string', 'max:255'],
-            'Dob' => ['required', 'string', 'max:255'],
-            'Department' => ['required', 'string', 'max:255'],
-            'Address' => ['required', 'string', 'max:255'],
-            'Av_leave' => ['required', 'string', 'max:255'],
-            'Phonenumber' => ['required', 'string', 'max:255'],
+            'staff_ID' => ['required', 'string', 'max:255'],
+            'position_staff' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+            'dob' => ['required', 'string', 'max:255'],
+            'department' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'av_leave' => ['required', 'string', 'max:255'],
+            'phone_num' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
 
          ]);
 
         $user = new User();
-        $user->FirstName = $validatedData['FirstName'];
-        $user->LastName = $validatedData['LastName'];
+        $user->first_name = $validatedData['first_name'];
+        $user->last_name = $validatedData['last_name'];
         $user->email = $validatedData['email'];
         $user->password = Hash::make($validatedData['password']);
-        $user->Staff_ID = $validatedData['Staff_ID'];
-        $user->Position_Staff = $validatedData['Position_Staff'];
-        $user->Gender = $validatedData['Gender'];
-        $user->Dob = $validatedData['Dob'];
-        $user->Department = $validatedData['Department'];
-        $user->Address = $validatedData['Address'];
-        $user->Av_leave = $validatedData['Av_leave'];
-        $user->Phonenumber = $validatedData['Phonenumber'];
+        $user->staff_ID = $validatedData['staff_ID'];
+        $user->position_staff = $validatedData['position_staff'];
+        $user->gender = $validatedData['gender'];
+        $user->dob = $validatedData['dob'];
+        $user->department = $validatedData['department'];
+        $user->address = $validatedData['address'];
+        $user->av_leave = $validatedData['av_leave'];
+        $user->phone_num = $validatedData['phone_num'];
         $user->role = $validatedData['role'];
 
         $user->save();
@@ -91,4 +91,10 @@ class AdminController extends Controller
 
 //        ]);
     }
+
+    public function view_all_leave(){
+
+    }
+
+
 }

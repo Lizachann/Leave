@@ -25,9 +25,8 @@ Route::get('/', function () {
 route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 
 
-Route::get('/tests', 'App\Http\Controllers\TestController@index')->name('tests.index');
-Route::post('/tests', 'App\Http\Controllers\TestController@store')->name('tests.store');
-
+//Route::get('/tests', 'App\Http\Controllers\TestController@index')->name('tests.index');
+//Route::post('/tests', 'App\Http\Controllers\TestController@store')->name('tests.store');
 
 
 Route::middleware(['auth','admin'])->group(function () {
@@ -35,18 +34,16 @@ Route::middleware(['auth','admin'])->group(function () {
 
         route::get('post','post');
 
+
         route::get('/admin/addStaff','addStaff')->name('admin.addStaff');
         route::post('/admin/addStaff','storeAddStaff')->name('admin.addStaff.store');
 
     });
 });
 
-
 Route::middleware(['auth','hod'])->group(function () {
     Route::controller(AdminController::class)->group(function(){
-
 //        route::get('post','post');
-
 
     });
 });
@@ -54,9 +51,8 @@ Route::middleware(['auth','hod'])->group(function () {
 
 Route::middleware(['auth','staff'])->group(function () {
     Route::controller(StaffController::class)->group(function(){
-
-        route::get('apply','applyLeave');
-
+        route::get('/staff/applyleave','applyLeave')->name('staff.applyLeave');
+        route::post('/staff/applyleave','store_applyLeave')->name('staff.applyLeave.store');
 
     });
 });

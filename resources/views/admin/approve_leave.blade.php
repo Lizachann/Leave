@@ -2,26 +2,26 @@
     <form method="POST" action="{{ route('staff.applyLeave.store') }}">
         @csrf
 
-{{--    header--}}
+        {{--    header--}}
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="px-6 pt-6 text-xl leading-tight font-semibold">
-                        {{ __("Apply Leave") }}
+                        {{ __("All Leave") }}
                     </div>
                     <div class="px-9 pt-3 pb-6 text-l leading-tight ">
-                            Dashboard > Leave > Apply Leave
+                        Dashboard > Leave > All Leave
                     </div>
                 </div>
             </div>
         </div>
 
-{{--        @foreach($leaves as $leave)--}}
-{{--            {{$leave->leaveDays_left == Auth::user()->av_leave }}--}}
+        {{--        @foreach($leaves as $leave)--}}
+        {{--            {{$leave->leaveDays_left == Auth::user()->av_leave }}--}}
 
-{{--        @endforeach--}}
+        {{--        @endforeach--}}
 
-{{--    applyleave--}}
+        {{--    applyleave--}}
         <div class="container apply-form pt-2 sm:px-18 lg:px-28 " >
             <div class="row">
                 <div class="col-md-12">
@@ -65,15 +65,15 @@
 
                                     <div class="form-group required my-2 ">
                                         <label class="control-label mb-2">Leave Type</label>
-                                            <select name="leave_type" class="rounded-lg focus:ring-blue-500
+                                        <select name="leave_type" class="rounded-lg focus:ring-blue-500
                                             focus:border-blue-500 block w-full p-2.5 border border-black" required autocomplete="off" >
-                                                <option value="" >Select Leave Type </option>
-                                                <option value="Annual Leave">Annual Leave</option>
-                                                <option value="Medical Leave">Medical Leave</option>
-                                                <option value="Compensatory Leave">Compensatory Leave</option>
-                                                <option value="Maternity Leave">Maternity Leave</option>
-                                            </select>
-{{--                                        </form>--}}
+                                            <option value="" >Select Leave Type </option>
+                                            <option value="Annual Leave">Annual Leave</option>
+                                            <option value="Medical Leave">Medical Leave</option>
+                                            <option value="Compensatory Leave">Compensatory Leave</option>
+                                            <option value="Maternity Leave">Maternity Leave</option>
+                                        </select>
+                                        {{--                                        </form>--}}
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">

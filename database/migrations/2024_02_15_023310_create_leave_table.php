@@ -15,26 +15,21 @@ return new class extends Migration
     {
         Schema::create('tblleaves', function (Blueprint $table) {
             $table->id();
-            $table->string('LeaveType');
-            $table->float('ResquestedDays');
-//            $table->float('DaysOutstand');
-            $table->string('FromDate');
-            $table->string('FromTime');
-            $table->string('ToDate');
-            $table->string('ToTime');
-
-//            $table->string('Sign');
-//            $table->date('PostingDate');
-            $table->string('WorkCovered');
-            $table->integer('HodRemarks');
-//            $table->string('HodSign');
-            $table->string('HodDate');
-            $table->integer('RegRemarks');
-//            $table->string('RegSign');
-            $table->string('RegDate');
-            $table->integer('IsRead');
-            $table->integer('emp_id');
-            $table->float('num_days');
+            $table->string('leave_type');
+            $table->float('request_days');
+            $table->float('leaveDays_left')->nullable();
+            $table->string('from_date');
+            $table->string('from_time');
+            $table->string('to_date');
+            $table->string('to_time');
+            $table->string('work_covered');
+            $table->integer('hod_remark')->nullable();
+            $table->string('hod_date')->nullable();
+            $table->integer('admin_remark')->nullable();
+            $table->string('admin_date')->nullable();
+//            $table->integer('IsRead')->nullable();
+            $table->integer('emp_id')->nullable();
+//            $table->float('num_days')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -26,7 +26,6 @@
     <script src="bower_components/fastclick/lib/fastclick.js"></script>
     <!-- JS of treeview -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
-    <script src="{{ asset('js/datePicker.js') }}"></script>
 
 
     <!-- css  -->
@@ -44,7 +43,16 @@
 {{--    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>--}}
 {{--    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>--}}
 
-    <!-- Scripts -->
+{{--    datepicker--}}
+{{--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--}}
+{{--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
+{{--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+
+
+{{--    <!-- Scripts -->--}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>

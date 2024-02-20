@@ -4,7 +4,7 @@
         <div class="flex justify-between h-16 ">
             <div class="flex " >
 
-{{--                nav to open side bar--}}
+                <!-- nav to open side bar-->
                 <div class=" h-20 flex justify-between items-center">
                     <button class="btn text-white hover:bg-blue-700 mb-3 text-4xl ml-[2%] " type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" fdprocessedid="l3j8mi">
@@ -22,7 +22,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger" >
                         <button class="inline-flex items-center px-3 py-2 text-lg leading-4 font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->LastName }} {{ Auth::user()->FirstName }} </div>
+                            <div>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }} </div>
 
                             <img src=" {{ asset ('assets/images/test.png') }}" alt=" Profile"
                                  class= 'rounded-full object-cover w-10 h-10 ml-5' />
@@ -48,7 +48,7 @@
                 </x-dropdown>
             </div>
 
-{{--                        side-bar--}}
+            <!-- side bar-->
             @if( Auth::user()->role == 'admin')
                 @include('admin.adminSidebar')
             @elseif(Auth::user()->role == 'hod')

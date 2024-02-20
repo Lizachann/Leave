@@ -1,57 +1,45 @@
-$('#example1').calendar();
-$('#example2').calendar({
-    type: 'date'
-});
-$('#example3').calendar({
-    type: 'time'
-});
-$('#rangestart').calendar({
-    type: 'date',
-    endCalendar: $('#rangeend')
-});
-$('#rangeend').calendar({
-    type: 'date',
-    startCalendar: $('#rangestart')
-});
-$('#example4').calendar({
-    startMode: 'year'
-});
-$('#example5').calendar();
-$('#example6').calendar({
-    ampm: false,
-    type: 'time'
-});
-$('#example7').calendar({
-    type: 'month'
-});
-$('#example8').calendar({
-    type: 'year'
-});
-$('#example9').calendar();
-$('#example10').calendar({
-    on: 'hover'
-});
-var today = new Date();
-$('#example11').calendar({
-    minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
-    maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
-});
-$('#example12').calendar({
-    monthFirst: false
-});
-$('#example13').calendar({
-    monthFirst: false,
-    formatter: {
-        date: function (date, settings) {
-            if (!date) return '';
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            return day + '/' + month + '/' + year;
+    $(function() {
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy', // Set date format
+        changeMonth: true,       // Allow changing of months
+        changeYear: true,        // Allow changing of years
+        yearRange: '1900:2100'   // Set range of selectable years
+    });
+
+    $("#start_date").datepicker({
+        dateFormat: 'dd/mm/yy', // Set date format
+        changeMonth: true,       // Allow changing of months
+        changeYear: true,        // Allow changing of years
+        yearRange: '1900:2100',  // Set range of selectable years
+        daysOfWeekDisabled: '0',
+
+    }).on('changeDate', function(selected){
+            var startDate = new Date(selected.date.valueOf());
+            $('#end_date').datepicker('setStartDate', startDate);
+        }).on('changeDate', function(selected) {
+        var startDate = new Date(selected.date.valueOf());
+        // Update minimum selectable date for end date picker
+        $('#end_date').datepicker('setStartDate', startDate);
+        // Ensure that end date is not before start date
+        var endDate = new Date($('#end_date').val());
+        if (endDate < startDate) {
+            $('#end_date').datepicker('setDate', startDate);
         }
-    }
+    });
+
+
+    $("#end_date").datepicker({
+    dateFormat: 'dd/mm/yy', // Set date format
+    changeMonth: true,       // Allow changing of months
+    changeYear: true,        // Allow changing of years
+    yearRange: '1900:2100'   ,// Set range of selectable years
+        daysOfWeekDisabled: '0',
+    }).on('changeDate', function(selected) {
+        var endDate = new Date(selected.date.valueOf());
+        // Ensure that end date is not before start date
+        var startDate = new Date($('#start_date').val());
+        if (endDate < startDate) {
+            $('#start_date').datepicker('setDate', endDate);
+        }
+    });
 });
-$('#example14').calendar({
-    inline: true
-});
-$('#example15').calendar();

@@ -53,7 +53,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu ">
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/apply'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/staff/applyleave'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-plus ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
