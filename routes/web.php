@@ -37,6 +37,16 @@ Route::middleware(['auth','admin'])->group(function () {
 
         route::get('/admin/addStaff','addStaff')->name('admin.addStaff');
         route::post('/admin/addStaff','storeAddStaff')->name('admin.addStaff.store');
+//        view leave
+        route::get('/admin/all/leave','view_all_leave');
+        route::get('/admin/pending/leave','view_pending_leave');
+        route::get('/admin/approved/leave','view_approved_leave');
+        route::get('/admin/rejected/leave','view_rejected_leave');
+
+        route::get('/admin/leave_detail','leave_detail');
+
+
+
 
     });
 });

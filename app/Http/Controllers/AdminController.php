@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tblleave;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -94,7 +97,58 @@ class AdminController extends Controller
 
     public function view_all_leave(){
 
+        $leaves = Tblleave::all();
+
+        $employees = User::all();
+
+        return view('admin.view_leave.all_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+        ]);
     }
+
+    public function view_pending_leave(){
+
+        $leaves = Tblleave::where('admin_remark', 0 )->get();
+
+        $employees = User::all();
+
+        return view('admin.view_leave.pending_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+        ]);
+    }
+
+    public function view_approved_leave(){
+
+        $leaves = Tblleave::where('admin_remark', 1)->get();
+
+        $employees = User::all();
+
+        return view('admin.view_leave.approved_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+        ]);
+    }
+
+    public function view_rejected_leave(){
+
+        $leaves = Tblleave::where('admin_remark', 2 )->get();
+
+        $employees = User::all();
+
+        return view('admin.view_leave.rejected_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+        ]);
+    }
+
+    public function leave_detail(){
+
+
+        return view('admin.leave_detail');
+    }
+
 
 
 }

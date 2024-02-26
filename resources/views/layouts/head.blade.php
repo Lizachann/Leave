@@ -26,14 +26,19 @@
     <script src="bower_components/fastclick/lib/fastclick.js"></script>
     <!-- JS of treeview -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
+    <script src="{{ asset('js/table.js') }}"></script>
+
+
 
 
     <!-- css  -->
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/applyleave.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
 
 
-{{--    flowbite--}}
+
+    {{--    flowbite--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
 
@@ -52,7 +57,20 @@
 
 
 
-{{--    <!-- Scripts -->--}}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+
+{{-- table   css--}}
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">--}}
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">--}}
+
+
+
+    {{--    <!-- Scripts -->--}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>

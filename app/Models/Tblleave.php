@@ -26,6 +26,9 @@ class Tblleave extends Model
 //        'num_days'
     ];
 
-
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
 
 }
