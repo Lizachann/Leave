@@ -8,7 +8,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+{{--    <link rel="preconnect" href="https://fonts.bunny.net">--}}
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
 
@@ -22,8 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+
     <!-- JS of treeview -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/table.js') }}"></script>
@@ -35,6 +34,10 @@
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/applyleave.css') }}" rel="stylesheet">
     <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datePicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
+
 
 
 
@@ -58,7 +61,7 @@
 
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+{{--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--}}
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
@@ -72,5 +75,16 @@
 
     {{--    <!-- Scripts -->--}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script>
+        function showAlert() {
+            alert('Form submitted!');
+            console.log('showAlert function called');
+
+
+        }
+    </script>
+
+
 
 </head>

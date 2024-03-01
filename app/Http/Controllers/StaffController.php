@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tblleave;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,23 +27,17 @@ class StaffController extends Controller
         $validatedData = $request->validate([
             'leave_type' => ['required', 'string', 'max:255'],
             'request_days' => ['required', 'string', 'max:255'],
-//            'leaveDays_left' => ['required', 'string', 'max:255'],
             'from_date' => ['required', 'string', 'max:255'],
             'from_time' => ['required', 'string', 'max:255'],
             'to_date' => ['required', 'string', 'max:255'],
             'to_time' => ['required', 'string', 'max:255'],
             'work_covered' => ['required', 'string', 'max:255'],
-//            'hod_remark' => ['required', 'string', 'max:255'],
-//            'hod_date' => ['required', 'string', 'max:255'],
-//            'admin_remark' => ['required', 'string', 'max:255'],
-//            'admin_date' => ['required', 'string', 'max:255'],
 
         ]);
 
         $leave = new Tblleave();
         $leave->leave_type = $validatedData['leave_type'];
         $leave->request_days = $validatedData['request_days'];
-//        $leave->leaveDays_left = $validatedData['leaveDays_left'];
         $leave->leaveDays_left = Auth::user()->av_leave;
         $leave->from_date = $validatedData['from_date'];
         $leave->from_time = $validatedData['from_time'];
@@ -56,16 +51,70 @@ class StaffController extends Controller
         $leave->admin_remark = '0';
         $leave->admin_date = '0';
 
-//        $leave->hod_remark = $validatedData['hod_remark'];
-//        $leave->hod_date = $validatedData['hod_date'];
-//        $leave->admin_remark = $validatedData['admin_remark'];
-//        $leave->admin_date = $validatedData['admin_date'] ;
 
         $leave->save();
+        return redirect()->route('staff.applyLeave')->with('success', 'Apply Leave Successfully!!');
 
-        return redirect()->route('staff.applyLeave')->with('success', 'User created successfully!');
+
+//        $leaveSaved = $leave->save();
+//
+//        if ($leaveSaved) {
+//            return redirect()->route('staff.applyLeave')->with('success', 'Apply Leave Successfully!!');
+//        } else {
+//            session()->put('error', 'Fail To Apply Leave!!'); // Manually set the error message
+//            dd(session()->all());// Debug statement to check the value of session('error')
+//            return redirect()->route('staff.applyLeave')->with('error', 'Fail To Apply Leave!!');
+//        }
 
     }
+
+    public function leave_history(){
+
+        $emp_id = Auth::user()->id;
+        $leaves = Tblleave::where('emp_id',$emp_id)->get();
+        $pendingLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',0)
+            ->get();
+
+        $approvedLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',1)
+            ->get();
+        $rejectedLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',2)
+            ->get();
+
+        $leaveCount = $leaves->count();
+        $countPending = $pendingLeaves->count();
+        $countApproved= $approvedLeaves->count();
+        $countRejected= $rejectedLeaves->count();
+
+        return view('staff.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+        ]);
+    }
+
+
+    public function view_leave_detail($id){
+
+        $leaves = Tblleave::where('id', $id)->get();
+
+        $leave = Tblleave::findOrFail($id);
+        $emp_id = $leave->emp_id;
+        $employees = User::where('id', $emp_id)->get();
+
+        return view('staff.leave_detail',[
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'id' =>  $id,
+
+        ]);
+
+    }
+
 
 
 }

@@ -1,55 +1,47 @@
-.wrapper {
-    margin-top: 5vh;
-}
 
-.dataTables_filter {
+
+.view_dataTable .dataTables_filter {
     float: right;
 }
 
-
-.table {
-    max-width: 100% !important; /* Overwrite default plugin style */
+.view_dataTable .table {
+    max-width: 100% !important;
 }
 
-thead {
+.view_dataTable thead {
     background: #ddd;
 }
 
-.table td:nth-child(2) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+/*.view_dataTable .table td:nth-child(2) {*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*}*/
 
 @media only screen and (max-width: 767px) {
-    /* Force table to not be like tables anymore */
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
+    .view_dataTable table,
+    .view_dataTable thead,
+    .view_dataTable tbody,
+    .view_dataTable th,
+    .view_dataTable td,
+    .view_dataTable tr {
         display: block;
     }
 
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr,
-    tfoot tr {
+    .view_dataTable thead tr,
+    .view_dataTable tfoot tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    td {
-        /* Behave like a "row" */
+    .view_dataTable td {
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
         padding-left: 50% !important;
     }
 
-    td:before {
-        /* Now like a table header */
+    .view_dataTable td:before {
         position: absolute;
         top: 6px;
         left: 6px;
@@ -58,7 +50,7 @@ thead {
         white-space: nowrap;
     }
 
-    .table td:nth-child(1) {
+    .view_dataTable .table td:nth-child(1) {
         background: #ccc;
         height: 100%;
         top: 0;
@@ -66,27 +58,34 @@ thead {
         font-weight: bold;
     }
 
-    /* Label the data */
-    td:nth-of-type(1):before {
+
+
+
+
+
+    .view_dataTable td:nth-of-type(1):before {
         content: "Staff Name";
     }
-    td:nth-of-type(2):before {
+    .view_dataTable td:nth-of-type(2):before {
         content: "Leave Type";
     }
-    td:nth-of-type(3):before {
+    .view_dataTable td:nth-of-type(3):before {
         content: "Applied Date";
     }
-    td:nth-of-type(4):before {
+    .view_dataTable td:nth-of-type(4):before {
         content: "HOD status";
     }
-    td:nth-of-type(5):before {
+    .view_dataTable td:nth-of-type(5):before {
         content: "Admin Status";
     }
-    td:nth-of-type(6):before {
+    .view_dataTable td:nth-of-type(6):before {
+        content: "Action";
+    }
+    .view_dataTable td:nth-of-type(7):before {
         content: "Action";
     }
 
-    .dataTables_length {
+    .view_dataTable .dataTables_length {
         display: none;
     }
 }

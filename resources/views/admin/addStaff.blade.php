@@ -1,25 +1,37 @@
 <x-app-layout>
     <form method="POST" action="{{ route('admin.addStaff.store') }}">
         @csrf
+        {{--    header--}}
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 -mt-5 ">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="px-6 pt-3 text-xl leading-tight font-semibold">
+                        {{ __("Add Staff") }}
+                    </div>
+                    <div class="px-9 pt-3 pb-3 text-l leading-tight ">
+                        <a href="/home">
+                            Home
+                        </a>
+                        >
+                        <a href="/admin/addStaff">
+                            Add Staff
+                        </a>
 
-            {{--    header--}}
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-xl text-gray-800 leading-tight font-semibold">
-                            {{ __("Add New Staff") }}
-                        </div>
+
                     </div>
                 </div>
             </div>
-
+        </div>
 
             {{--    applyleave--}}
-            <div class="container apply-form px-28 " >
+            <div class="container apply-form  pt-2 sm:px-18 lg:px-28 -mt-8 "  >
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card contact-support">
-                            <div class="card-body">
+                            <div class="card-body -mt-8 -mx-5">
+                                <div class="text-blue-800 pb-6 text-2xl leading-tight font-bold  ">
+                                    {{ __("Add Staff Form") }}
+                                </div>
                                 <form action="">
                                     <div class="row form-wrap">
 
@@ -81,10 +93,10 @@
                                                 <select id="department" name="department" class="rounded-lg focus:ring-blue-500
                                         focus:border-blue-500 block w-full p-2.5 border border-black" required>
                                                     <option value="">Select Department </option>
-                                                    <option value="Information Technology">Information Technology</option>
+                                                    <option value="IT">Information Technology</option>
                                                     <option value="Admin">Admin</option>
                                                     <option value="Labour">Labour</option>
-                                                    <option value="Public Relation">Public Relation</option>
+                                                    <option value="PR">Public Relation</option>
                                                     <option value="Membership">Membership</option>
                                                     <option value="Finance">Finance</option>
                                                 </select>
@@ -115,5 +127,10 @@
                     </div>
                 </div>
             </div>
+        @if (session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+        @endif
     </form>
 </x-app-layout>

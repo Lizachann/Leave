@@ -1,4 +1,4 @@
-    $(function() {
+$(document).ready(function() {
     $("#datepicker").datepicker({
         dateFormat: 'dd/mm/yy', // Set date format
         changeMonth: true,       // Allow changing of months
@@ -33,7 +33,7 @@
     changeMonth: true,       // Allow changing of months
     changeYear: true,        // Allow changing of years
     yearRange: '1900:2100'   ,// Set range of selectable years
-        daysOfWeekDisabled: '0',
+    daysOfWeekDisabled: '0',
     }).on('changeDate', function(selected) {
         var endDate = new Date(selected.date.valueOf());
         // Ensure that end date is not before start date

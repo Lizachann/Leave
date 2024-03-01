@@ -24,7 +24,7 @@
                         <button class="inline-flex items-center px-3 py-2 text-lg leading-4 font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }} </div>
 
-                            <img src=" {{ asset ('assets/images/test.png') }}" alt=" Profile"
+                            <img src=" {{ asset ('assets/images/user.jpg') }}" alt=" Profile"
                                  class= 'rounded-full object-cover w-10 h-10 ml-5' />
                         </button>
                     </x-slot>
@@ -73,37 +73,37 @@
 
 
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+{{--    <!-- Responsive Navigation Menu -->--}}
+{{--    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">--}}
+{{--        <div class="pt-2 pb-3 space-y-1">--}}
+{{--            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">--}}
+{{--                {{ __('Dashboard') }}--}}
+{{--            </x-responsive-nav-link>--}}
+{{--        </div>--}}
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
+{{--        <!-- Responsive Settings Options -->--}}
+{{--        <div class="pt-4 pb-1 border-t border-gray-200">--}}
+{{--            <div class="px-4">--}}
+{{--                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>--}}
+{{--                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>--}}
+{{--            </div>--}}
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+{{--            <div class="mt-3 space-y-1">--}}
+{{--                <x-responsive-nav-link :href="route('profile.edit')">--}}
+{{--                    {{ __('Profile') }}--}}
+{{--                </x-responsive-nav-link>--}}
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+{{--                <!-- Authentication -->--}}
+{{--                <form method="POST" action="{{ route('logout') }}">--}}
+{{--                    @csrf--}}
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-    </div>
+{{--                    <x-responsive-nav-link :href="route('logout')"--}}
+{{--                            onclick="event.preventDefault();--}}
+{{--                                        this.closest('form').submit();">--}}
+{{--                        {{ __('Log Out') }}--}}
+{{--                    </x-responsive-nav-link>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </nav>

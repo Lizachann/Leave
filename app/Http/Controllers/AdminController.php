@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tblleave;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,17 @@ use Illuminate\Validation\Rules;
 class AdminController extends Controller
 {
 
+    public function dashboard(){
+        if(Auth::id()){
+
+            $role=Auth()->user()->role;
+
+            if($role=='admin'){
+                return view('admin.adminhome');
+            }
+
+        }
+    }
     public function post(){
 
             return view('post');
@@ -31,18 +43,18 @@ class AdminController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+//
+
+
+
     public function storeAddStaff(Request $request)
     {
         $validatedData = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-//            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-//            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'email' => 'required|string|max:255|email|unique:users,email',
             'password' => 'required|string|min:4',
-
             'staff_ID' => ['required', 'string', 'max:255'],
             'position_staff' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
@@ -52,7 +64,6 @@ class AdminController extends Controller
             'av_leave' => ['required', 'string', 'max:255'],
             'phone_num' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
-
          ]);
 
         $user = new User();
@@ -73,26 +84,6 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->route('admin.addStaff')->with('success', 'User created successfully!');
-
-
-
-
-//        $user = User::create([
-//            'FirstName' => $request->FirstName,
-//            'LastName' => $request->LastName,
-//            'Staff_ID' => $request->Staff_ID,
-//            'Position_Staff' => $request->Position_Staff,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//            'Gender' => $request->Gender,
-//            'Dob' => $request->Dob,
-//            'Department' => $request->Department,
-//            'Address' => $request->Address,
-//            'Av_leave' => $request->Av_leave,
-//            'Phonenumber' => $request->Phonenumber,
-//            'role' =>$request->role,
-
-//        ]);
     }
 
     public function view_all_leave(){
@@ -143,10 +134,69 @@ class AdminController extends Controller
         ]);
     }
 
-    public function leave_detail(){
+    public function view_leave_detail($id){
+
+        $leaves = Tblleave::where('id', $id)->get();
+
+        $leave = Tblleave::findOrFail($id);
+        $emp_id = $leave->emp_id;
+        $employees = User::where('id', $emp_id)->get();
 
 
-        return view('admin.leave_detail');
+        return view('admin.leave_detail',[
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'id' =>  $id,
+
+        ]);
+
+    }
+
+    public function admin_approval(Request $request, $id){
+
+        $leave = Tblleave::findOrFail($id);
+
+        $allLeaves = Tblleave::all();
+
+        $leave->admin_remark = (int)$request->input('admin_remark');
+        $leave->admin_date = Carbon::now()->toDateString();
+        $emp_id = $leave->emp_id;
+
+        $employee = User::findOrFail($emp_id);
+
+        if($leave->admin_remark == 1 && $leave->leave_type === "Annual Leave"){
+                $leaveDays_left = $employee->av_leave - $leave->request_days;
+                $employee->av_leave = $leaveDays_left;
+                foreach ($allLeaves as $allLeave){
+                    $leaveId = $allLeave->emp_id;
+                    if($leaveId == $emp_id){
+                        $allLeave->leaveDays_left = $leaveDays_left;
+                    }
+                    $allLeave->save();
+                }
+            }else{
+            foreach ($allLeaves as $allLeave){
+                $leaveId = $allLeave->emp_id;
+                if($leaveId == $emp_id){
+                    $allLeave->leaveDays_left = $employee->av_leave;
+                }
+                $allLeave->save();
+            }
+        }
+
+        $employee->save();
+        $leave->save();
+
+        return redirect()->route('view_all_leave') ->
+        with(
+            'success' , 'Change Status Approval successfully!'
+        );
+
+
+//        return redirect()->route('view_leave_detail', [$id]) ->
+//        with(
+//            'success' , 'Change Status Approval successfully!'
+//         );
     }
 
 

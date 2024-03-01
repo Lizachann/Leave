@@ -4,36 +4,38 @@
 
 {{--    header--}}
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 -mt-5 ">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="px-6 pt-6 text-xl leading-tight font-semibold">
                         {{ __("Apply Leave") }}
                     </div>
                     <div class="px-9 pt-3 pb-6 text-l leading-tight ">
-                            Dashboard > Leave > Apply Leave
+                        <a href="/home">
+                            Home
+                        </a>
+                        >
+                        <a href="">
+                            Leave
+                        </a>
+                        >
+                        <a href="/staff/applyleave">
+                            Apply Leave
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
-{{--        @foreach($leaves as $leave)--}}
-{{--            {{$leave->leaveDays_left == Auth::user()->av_leave }}--}}
-
-{{--        @endforeach--}}
-
-{{--    applyleave--}}
-        <div class="container apply-form pt-2 sm:px-18 lg:px-28 " >
+        <div class="container apply-form pt-2 sm:px-18 lg:px-28 -mt-8" >
             <div class="row">
                 <div class="col-md-12">
                     <div class="card contact-support">
-                        <div class="card-body">
-                            <div class="px-6 pb-6 text-xl leading-tight font-semibold">
-                                {{ __("Staff Leave form") }}
+                        <div class="card-body -mt-8 -mx-5">
+                            <div class="text-blue-800 pb-6 text-2xl leading-tight font-bold">
+                                {{ __("Apply Leave form") }}
                             </div>
-                            <form action="">
+                            <form onsubmit="">
                                 <div class="row form-wrap">
-
-
                                     <div class="form-group required col-md-6 mb-2 ">
                                         <label class="control-label mb-2">Last Name</label>
                                         <label class="form-control border-black bg-gray-200" >
@@ -79,7 +81,7 @@
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">From Date</label>
                                         <div class="flex">
-                                            <input required type="text" id="start_date" name="from_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy ">
+                                            <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy ">
                                             <div class="pl-[3%]">
                                                 <select name="from_time" class="rounded-lg focus:ring-blue-500
                                             focus:border-blue-500 block w-full p-2.5 border border-black" required >
@@ -124,7 +126,8 @@
 
                                 </div>
                                 <div class="flex mt-8 justify-between items-center x">
-                                    <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply</button>
+                                    <button type="submit"  class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply</button>
+
                                 </div>
                             </form>
                         </div>
@@ -132,6 +135,19 @@
                 </div>
             </div>
         </div>
+        @if (session('success'))
+        <script>
+            // Show success alert
+            alert("{{ session('success') }}");
+        </script>
+        @endif
+
+{{--        @if (session('error'))--}}
+{{--            <script>--}}
+{{--                // Show error alert--}}
+{{--                alert("{{ session('error') }}");--}}
+{{--            </script>--}}
+{{--        @endif--}}
     </form>
 </x-app-layout>
 
