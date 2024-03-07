@@ -26,6 +26,8 @@
     <!-- JS of treeview -->
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/table.js') }}"></script>
+    <script src="{{ asset('js/tab_content.js') }}"></script>
+
 
 
 
@@ -36,6 +38,8 @@
     <link href="{{ asset('css/table.css') }}" rel="stylesheet">
     <link href="{{ asset('css/datePicker.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/tab_content.css') }}" rel="stylesheet">
+
 
 
 

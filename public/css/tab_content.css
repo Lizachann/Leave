@@ -1,0 +1,79 @@
+/* Style for the dropdown button */
+.dropbtn {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+/*.dropbtn.active {*/
+/*    background-color: #ccc; !* Change the background color to your desired color *!*/
+/*}*/
+
+
+/* Icon styling */
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+/* Style for the dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Style for the dropdown options */
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the dropdown options */
+.dropdown-content button:hover {
+    background-color: #DBE9FA	;
+}
+
+/* Show the dropdown content when hovering or clicking on the dropdown button */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.tab .second-button.active {
+    border-bottom: 2px solid darkblue;
+    color: darkblue;
+}
+
+
+/* Style for the tab content */
+.tabcontent {
+    display: none;
+    padding: 20px;
+}
+
+/* Reset margin for h3 elements inside tab content */
+.tabcontent h3 {
+    margin-top: 0;
+}
+
+/* Show the default tab content */
+.tabcontent:first-child {
+    display: block;
+}

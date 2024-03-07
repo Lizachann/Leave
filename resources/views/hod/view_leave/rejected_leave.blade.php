@@ -6,14 +6,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg -mt-5">
                 <div class="px-6 pt-3 text-xl leading-tight font-semibold">
-                    {{ __("Pending Leave") }}
+                    {{ __("Rejected Leave") }}
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
                         Home
                     </a>
                     >
-                    <a href="/admin/all/leave">
+                    <a href="/hod/all/leave">
                         All Leave
                     </a>
 

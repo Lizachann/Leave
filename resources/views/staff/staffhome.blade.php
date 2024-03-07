@@ -2,17 +2,18 @@
 
     {{--        header--}}
     <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="bg-white shadow-sm sm:rounded-lg py-5 flex items-center ">
 
                 <img src=" {{ asset ('assets/images/welcome.png') }}" alt=" Profile"
-                     class= ' object-cover w-[350px]  ' />
-                <div>
-                    <div class="px-20 pt-14 text-2xl leading-tight font-semibold">
-                        Welcome Vack
+                     class= ' object-cover lg:w-[25%] w-[50%] h-full  ' />
+                <div class="items-center w-full">
+                    <div class="pl-[10%] pb-[2%] lg:text-2xl text-xl leading-tight font-semibold">
+                        Welcome Back
                     </div>
-                    <div class="px-20 text-4xl text-blue-800 leading-tight font-semibold">
+                    <div class="pl-[10%] lg:text-4xl text-2xl text-blue-800 leading-tight font-semibold">
                         {{ Auth::user()->last_name.' '.Auth::user()->first_name }},
+{{--                        Yang Chansovannmeanrith ,--}}
                     </div>
                 </div>
 
@@ -85,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/staff/leave/history">
+                            <a href="{{route('staff_pending_leave_history')}}">
                                 <div class="panel-footer">
                                     <span class="pull-left yellow">View Details</span>
                                     <span class="pull-right yellow"><i class="fa fa-arrow-circle-right"></i></span>
@@ -120,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/staff/leave/history">
+                            <a href="{{route('staff_approved_leave_history')}}">
                                 <div class="panel-footer">
                                     <span class="pull-left green">View Details</span>
                                     <span class="pull-right green"><i class="fa fa-arrow-circle-right"></i></span>
@@ -155,7 +156,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/staff/leave/history">
+                            <a href="{{route('staff_rejected_leave_history')}}">
                                 <div class="panel-footer">
                                     <span class="pull-left red">View Details</span>
                                     <span class="pull-right red"><i class="fa fa-arrow-circle-right"></i></span>
@@ -174,7 +175,7 @@
 <div class="lg:flex col-lg-12  ">
     <div class="container apply-form max-w-7xl mx-auto lg:pb-20 pb-10" >
         <div class="card contact-support">
-            <div class="card-body -mt-14 -mx-16">
+            <div class="card-body -mt-14 lg:-mx-16">
                 <div class=" py-4 text-xl leading-tight font-semibold">
                     {{ __("My Head Department") }}
                 </div>
@@ -207,7 +208,7 @@
 
     <div class="container apply-form max-w-7xl mx-auto lg:pb-20 pb-10" >
         <div class="card contact-support">
-            <div class="card-body -mt-14 -mx-16">
+            <div class="card-body -mt-14 lg:-mx-16">
                 <div class=" py-4 text-xl leading-tight font-semibold">
                     {{ __("Same Department Staff") }}
                 </div>
@@ -242,7 +243,7 @@
 
     <div class="container apply-form max-w-7xl mx-auto lg:pb-20 pb-10" >
         <div class="card contact-support">
-            <div class="card-body -mt-14 -mx-16">
+            <div class="card-body -mt-14 lg:-mx-16">
                 <div class=" py-4 text-xl leading-tight font-semibold ">
                     {{ __("All Contact") }}
                 </div>

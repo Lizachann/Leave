@@ -3,58 +3,140 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Tblleave;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+//    /**
+//     * Display the user's profile form.
+//     */
+//    public function edit(Request $request): View
+//    {
+//        return view('profile.edit', [
+//            'user' => $request->user(),
+//        ]);
+//    }
+//
+//    /**
+//     * Update the user's profile information.
+//     */
+//    public function update(ProfileUpdateRequest $request): RedirectResponse
+//    {
+//        $request->user()->fill($request->validated());
+//
+//        if ($request->user()->isDirty('email')) {
+//            $request->user()->email_verified_at = null;
+//        }
+//
+//        $request->user()->save();
+//
+//        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+//    }
+//
+//    /**
+//     * Delete the user's account.
+//     */
+//    public function destroy(Request $request): RedirectResponse
+//    {
+//        $request->validateWithBag('userDeletion', [
+//            'password' => ['required', 'current-password'],
+//        ]);
+//
+//        $user = $request->user();
+//
+//        Auth::logout();
+//
+//        $user->delete();
+//
+//        $request->session()->invalidate();
+//        $request->session()->regenerateToken();
+//
+//        return Redirect::to('/');
+//    }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+
+    public function index(){
+
+        $leaves = Tblleave::where('emp_id',Auth::user()->id)
+                        -> orderBy('created_at', 'desc')
+                        -> get();
+        $approved_leaves = Tblleave::where('emp_id',Auth::user()->id)
+                        -> where('admin_remark',1)
+                        -> orderBy('created_at', 'desc')
+                        -> get();
+        $rejected_leaves = Tblleave::where('emp_id',Auth::user()->id)
+            -> where('admin_remark',2)
+            -> orderBy('created_at', 'desc')
+            -> get();
+        $pending_leaves = Tblleave::where('emp_id',Auth::user()->id)
+            -> where('admin_remark',0)
+            -> orderBy('created_at', 'desc')
+            -> get();
+
+        if(Auth::user()->role === 'staff'){
+            $goto = 'staff_view_leave_detail';
+        }else  if(Auth::user()->role === 'admin'){
+            $goto = 'admin_view_leave_detail';
         }
+//        else  if(Auth::user()->role === 'staff'){
+//            $goto = 'staff_view_leave_detail';
+//        }
 
-        $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+
+        return view('profile.profile',[
+            'leaves' => $leaves,
+            'goto' => $goto,
+            'approved_leaves' => $approved_leaves,
+            'rejected_leaves' => $rejected_leaves,
+            'pending_leaves' => $pending_leaves
+
+        ]);
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+
+    public function setting(Request $request){
+
+        $employee = User::findOrFail(Auth::user()->id);
+
+        $employee->first_name = $request->input('first_name');
+        $employee->last_name = $request->input('last_name');
+        $employee->phone_num = $request->input('phone_num');
+        $employee->dob = $request->input('dob');
+        $employee->gender = $request->input('gender');
+        $employee->address = $request->input('address');
+
+        $employee->save();
+
+        return redirect()->route('profile') ->
+        with(
+            'success' , 'Change Status Approval successfully!'
+        );
+    }
+
+    public function update(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
+        $validated = $request->validateWithBag('updatePassword', [
+            'current_password' => ['required', 'current_password'],
+            'password' => 'required|string|min:4',
         ]);
 
-        $user = $request->user();
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
 
-        Auth::logout();
+        return redirect()->route('profile') ->
+        with(
+            'success' , 'Password updated successfully!'
+        );    }
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
 }

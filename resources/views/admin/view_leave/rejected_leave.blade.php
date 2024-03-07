@@ -13,8 +13,8 @@
                         Home
                     </a>
                     >
-                    <a href="/admin/rejected/leave">
-                        Rejected Leave
+                    <a href="/admin/all/leave">
+                        All Leave
                     </a>
 
                 </div>

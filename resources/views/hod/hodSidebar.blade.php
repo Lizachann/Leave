@@ -54,7 +54,7 @@
                 </a>
                 <ul class="treeview-menu ">
 
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/applyleave'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-plus ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
@@ -63,7 +63,7 @@
                         </svg>
                         <h1 class='ml-[10%] text-l'>Apply Leave</h1>
                     </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/leave/history'>
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journals ml-[20%] w-5 h-5" viewBox="0 0 16 16">
@@ -72,7 +72,7 @@
                         </svg>
                         <h1 class='ml-[10%] text-l'>My Leave History</h1>
                     </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='{{route('hod_view_all_leave')}}'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-bookmark-fill ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -84,7 +84,7 @@
                         </svg>
                         <h1 class='ml-[10%] text-l'>All Leave</h1>
                     </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/pending/leave'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-arrow-down ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -96,19 +96,7 @@
                         </svg>
                         <h1 class='ml-[10%] text-l'>Pending Leave</h1>
                     </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-journal-x ml-[20%] w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708" />
-                            <path
-                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                            <path
-                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                        </svg>
-                        <h1 class='ml-[10%] text-l'>Rejected Leave</h1>
-                    </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/approved/leave'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-check ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -119,6 +107,18 @@
                                 d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
                         </svg>
                         <h1 class='ml-[10%] text-l'>Approved Leave</h1>
+                    </a>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/rejected/leave'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-journal-x ml-[20%] w-5 h-5" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708" />
+                            <path
+                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                            <path
+                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                        </svg>
+                        <h1 class='ml-[10%] text-l'>Rejected Leave</h1>
                     </a>
                 </ul>
 
@@ -146,19 +146,6 @@
                     </span>
                 </a>
                 <ul class="treeview-menu ">
-
-                    <a class='w-full h-14 hover:bg-blue-900 rounded flex items-center' href='#'>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-person-fill-add ml-[20%] w-5 h-5" viewBox="0 0 16 16">
-                            <path
-                                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path
-                                d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
-                        </svg>
-                        <h1 class='ml-[10%] text-l'>Add staff</h1>
-                    </a>
-
                     <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-person-gear ml-[20%] w-5 h-5" viewBox="0 0 16 16">

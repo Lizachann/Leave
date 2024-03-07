@@ -13,18 +13,6 @@ use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
-
-    public function dashboard(){
-        if(Auth::id()){
-
-            $role=Auth()->user()->role;
-
-            if($role=='admin'){
-                return view('admin.adminhome');
-            }
-
-        }
-    }
     public function post(){
 
             return view('post');
@@ -147,8 +135,8 @@ class AdminController extends Controller
             'leaves' => $leaves,
             'employees' => $employees,
             'id' =>  $id,
-
         ]);
+
 
     }
 

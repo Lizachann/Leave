@@ -1,19 +1,18 @@
-
 <x-app-layout class="bg-gray-100">
 
-    {{--        header--}}
+{{--        header--}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg -mt-5">
                 <div class="px-6 pt-3 text-xl leading-tight font-semibold">
-                    {{ __("Pending Leave") }}
+                    {{ __("All Leave") }}
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
                         Home
                     </a>
                     >
-                    <a href="/admin/all/leave">
+                    <a href="/hod/all/leave">
                         All Leave
                     </a>
 
@@ -22,7 +21,7 @@
         </div>
     </div>
 
-    {{--    show all leave--}}
+{{--    show all leave--}}
     <div class="view_dataTable">
         <div class="container wrapper pt-2 sm:px-18 lg:px-28 apply-form -mt-8 ">
 
@@ -40,8 +39,8 @@
                 </thead>
 
                 <tbody>
-                @foreach($leaves as $leave)
 
+                @foreach($leaves as $leave)
                     <tr>
                         @foreach ($employees as $employee)
                             @if($leave->emp_id == $employee->id)
@@ -70,7 +69,7 @@
                         </td>
                         <td class=" justify-center items-center flex">
                             <button class=" bg-green-500 px-3 py-1 rounded" >
-                                <a href="{{ route('admin_view_leave_detail', ['id' => $leave->id]) }}"  >
+                                <a href="{{ route('hod_view_leave_detail', ['id' => $leave->id]) }}"  >
                                     Edit
                                 </a>
                             </button>

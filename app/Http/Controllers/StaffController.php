@@ -13,9 +13,6 @@ class StaffController extends Controller
 {
     public function applyLeave(){
         $leaves = Tblleave::where('emp_id', Auth::user()->id)->get();
-
-
-
         return view('staff.applyleave', ['
         leaves' => $leaves
 
@@ -54,21 +51,9 @@ class StaffController extends Controller
 
         $leave->save();
         return redirect()->route('staff.applyLeave')->with('success', 'Apply Leave Successfully!!');
-
-
-//        $leaveSaved = $leave->save();
-//
-//        if ($leaveSaved) {
-//            return redirect()->route('staff.applyLeave')->with('success', 'Apply Leave Successfully!!');
-//        } else {
-//            session()->put('error', 'Fail To Apply Leave!!'); // Manually set the error message
-//            dd(session()->all());// Debug statement to check the value of session('error')
-//            return redirect()->route('staff.applyLeave')->with('error', 'Fail To Apply Leave!!');
-//        }
-
     }
 
-    public function leave_history(){
+    public function leave_history_dashboard(){
 
         $emp_id = Auth::user()->id;
         $leaves = Tblleave::where('emp_id',$emp_id)->get();
@@ -87,8 +72,25 @@ class StaffController extends Controller
         $countPending = $pendingLeaves->count();
         $countApproved= $approvedLeaves->count();
         $countRejected= $rejectedLeaves->count();
+        return [
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+            ] ;
+    }
 
-        return view('staff.leave_history', [
+    public function leave_history(){
+
+        $emp_id = Auth::user()->id;
+        $leaves = Tblleave::where('emp_id',$emp_id)->get();
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+
+        return view('staff.leave_history.leave_history', [
             'leaves' => $leaves,
             'leaveCount'=> $leaveCount,
             'countPending'=>$countPending,
@@ -96,6 +98,70 @@ class StaffController extends Controller
             'countRejected'=>$countRejected
         ]);
     }
+
+    public function pending_leave_history(){
+
+        $emp_id = Auth::user()->id;
+        $pendingLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',0)
+            ->get();
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+
+        return view('staff.leave_history.pending_history', [
+            'pendingLeaves'=>$pendingLeaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+        ]);
+    }
+    public function approved_leave_history(){
+
+        $emp_id = Auth::user()->id;
+        $approvedLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',1)
+            ->get();
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        return view('staff.leave_history.approved_history', [
+            'approvedLeaves'=> $approvedLeaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+        ]);
+    }
+
+    public function rejected_leave_history(){
+
+        $emp_id = Auth::user()->id;
+        $rejectedLeaves = Tblleave::where('emp_id',$emp_id)
+            -> where('admin_remark',2)
+            ->get();
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        return view('staff.leave_history.rejected_history', [
+            'rejectedLeaves'=>$rejectedLeaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+        ]);
+    }
+
+
+
+
 
 
     public function view_leave_detail($id){

@@ -13,7 +13,7 @@
                         Home
                     </a>
                     >
-                    <a href="/admin/all/leave">
+                    <a href="/hod/all/leave">
                         All Leave
                     </a>
 

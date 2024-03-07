@@ -1,8 +1,7 @@
 <x-app-layout>
-
     @foreach($leaves as $leave)
     @foreach ($employees as $employee)
-        <form method="POST" action="{{ route('admin_approval', ['id' => $leave->id]) }}">
+        <form method="POST" action="{{ route('hod_approval', ['id' => $leave->id]) }}">
         @csrf
         @method('POST')
 
@@ -18,7 +17,7 @@
                            Home
                        </a>
                         >
-                        <a href="/admin/all/leave">
+                        <a href="/hod/all/leave">
                             All Leave
                         </a>
                         > Leave Detail
@@ -148,33 +147,32 @@
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 font-semibold">HOD's Approval</label>
-                                        <label class="form-control border-black bg-gray-200 h-10" >
-                                            @if($leave->hod_remark == 0)
-                                                Pending
-                                            @elseif($leave->hod_remark == 1)
-                                                Approved
-                                            @elseif($leave->hod_remark == 2)
-                                                Rejected
-                                            @endif
-                                        </label>
+                                        <select id="hod_remark" name="hod_remark" class="rounded-lg focus:ring-blue-500
+                                        focus:border-blue-500 block w-full p-2.5 border border-black" required >
+                                            <option value="">
+                                                @if($leave->hod_remark == 0)
+                                                    Change from Pending to
+                                                @elseif($leave->hod_remark == 1)
+                                                    Change from Approved to
+                                                @elseif($leave->hod_remark == 2)
+                                                    Change from Rejected to
+                                                @endif </option>
+                                            <option value="1">Approved</option>
+                                            <option value="2">Rejected</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 font-bold text-red-700">Admin's Approval</label>
-                                        <select id="admin_remark" name="admin_remark" class="rounded-lg focus:ring-blue-500
-                                        focus:border-blue-500 block w-full p-2.5 border border-black" required >
-                                            <option value="">
-                                                @if($leave->admin_remark == 0)
-                                                    Change from Pending to
-                                                @elseif($leave->admin_remark == 1)
-                                                    Change from Approved to
-                                                @elseif($leave->admin_remark == 2)
-                                                    Change from Rejected to
-                                                @endif </option>
-{{--                                            <option value="0">Pending</option>--}}
-                                            <option value="1">Approved</option>
-                                            <option value="2">Rejected</option>
-                                        </select>
+                                        <label class="form-control border-black bg-gray-200 h-10" >
+                                            @if($leave->admin_remark == 0)
+                                                Pending
+                                            @elseif($leave->admin_remark == 1)
+                                                Approved
+                                            @elseif($leave->admin_remark == 2)
+                                                Rejected
+                                            @endif
+                                        </label>
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
@@ -202,20 +200,25 @@
                                        <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Changed Statues</button>
                                     </div>
                                 </div>
+
+
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            @if (session('success'))
-                <script>
-                    alert("{{ session('success') }}");
-                </script>
-            @endif
+
     </form>
         @endforeach
     @endforeach
+        @if (session()->has('success'))
+            <script>
+                window.onload = function() {
+                    alert("{{ session('success') }}");
+                };
+            </script>
+        @endif
 
 </x-app-layout>
 
