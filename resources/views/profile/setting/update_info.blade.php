@@ -2,11 +2,11 @@
     @csrf
     <div class="row form-wrap">
         <h1 class="text-xl font-semibold text-[#4863A0] pb-4 pt-10 ">Edit your information</h1>
-        <div class="form-group col-md-6 ">
+        <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3">First Name</label>
             <input type="text" name="first_name" class="form-control rounded border-black " value="{{Auth::User()->first_name}}">
         </div>
-        <div class="form-group col-md-6 ">
+        <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3">Last Name</label>
             <input type="text" name="last_name" class="form-control rounded border-black" value="{{Auth::User()->last_name}}" >
         </div>
@@ -28,7 +28,7 @@
             <label class="control-label mb-3 ">Gender</label>
             <select name="gender" class="rounded-lg focus:ring-blue-500
                              focus:border-blue-500 block w-full p-2.5 border border-black " >
-                <option value="">
+                <option value="{{Auth::User()->gender}}">
                     {{Auth::User()->gender}}
                 </option>
                 <option value="Female">Female</option>
@@ -50,8 +50,4 @@
         <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 te ">Update Information</button>
     </div>
 </form>
-@if (session('success'))
-    <script>
-        alert("{{ session('success') }}");
-    </script>
-@endif
+

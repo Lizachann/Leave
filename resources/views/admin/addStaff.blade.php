@@ -62,7 +62,7 @@
 
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Staff ID</label>
-                                            <input type="text" name="staff_ID" class="form-control rounded border-black" required placeholder="">
+                                            <input type="text" name="staff_ID" class="form-control rounded border-black" value="{{ $nextID }}">
                                         </div>
 
                                         <div class="form-group required col-md-6 mt-4 ">

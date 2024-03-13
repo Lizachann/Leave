@@ -14,10 +14,6 @@
                             Home
                         </a>
                         >
-                        <a href="">
-                            Leave
-                        </a>
-                        >
                         <a href="/staff/applyleave">
                             Apply Leave
                         </a>
@@ -80,32 +76,12 @@
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">From Date</label>
-                                        <div class="flex">
-                                            <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy ">
-                                            <div class="pl-[3%]">
-                                                <select name="from_time" class="rounded-lg focus:ring-blue-500
-                                            focus:border-blue-500 block w-full p-2.5 border border-black" required >
-                                                    <option value="">Select Time </option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy">
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">To Date</label>
-                                        <div class="flex">
-                                            <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy">
-                                            <div class="pl-[3%]">
-                                                <select name="to_time" class="rounded-lg focus:ring-blue-500
-                                            focus:border-blue-500 block w-full p-2.5 border border-black" required>
-                                                    <option value="" >Select Time </option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy">
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
@@ -141,13 +117,6 @@
             alert("{{ session('success') }}");
         </script>
         @endif
-
-{{--        @if (session('error'))--}}
-{{--            <script>--}}
-{{--                // Show error alert--}}
-{{--                alert("{{ session('error') }}");--}}
-{{--            </script>--}}
-{{--        @endif--}}
     </form>
 </x-app-layout>
 

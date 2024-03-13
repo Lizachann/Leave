@@ -1,40 +1,53 @@
-
 <x-app-layout class="bg-gray-100">
-
     {{--        header--}}
-    <div class="py-12">
+    <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg -mt-5">
                 <div class="px-6 pt-3 text-xl leading-tight font-semibold">
-                    {{ __("Leave History") }}
+                    @if($page == 0)
+                        My All Leave History
+                    @elseif($page == 1)
+                        My Pending Leave History
+                    @elseif($page == 2)
+                        My Approved Leave History
+                    @elseif($page == 3)
+                        My Rejected Leave History
+                    @endif
+
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
                         Home
                     </a>
-
+                    >
+                    <a href="/hod/leave/history">
+                        Leave History
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
 {{--    dashboard--}}
-{{--    @include('staff.leave_history.leave_history_dashboard')--}}
+    <div class="-mt-14">
+        @include('hod.leave_history.leave_history_dashboard')
+
+    </div>
 
     {{--    show all leave history --}}
     <div class="view_dataTable">
-        <div class="container wrapper pt-2 sm:px-18 lg:px-28 apply-form  ">
-
+        <div class="container wrapper own_leave pt-2 sm:px-10 lg:px-20 apply-form  ">
             <table class="table table-bordered table-hover pt-3  ">
 
                 <thead>
                 <tr>
-                    <th class="col-md-2">Leave Type</th>
+                    <th class="col-md-3">Leave Type</th>
                     <th class="col-md-2">Start Date</th>
                     <th class="col-md-2">End Date</th>
                     <th class="col-md-2">Leave Days</th>
                     <th class="col-md-2">HOD Status</th>
                     <th class="col-md-2">Admin Status</th>
-                    <th class="col-md-2">Action</th>
+                    <th class="col-md-1">Action</th>
                 </tr>
                 </thead>
 
@@ -47,20 +60,20 @@
                         <td>{{$leave->request_days}}</td>
                         <td>
                             @if($leave->hod_remark == 0)
-                                Pending
+                                <h1 class="text-yellow-600 font-semibold">Pending</h1>
                             @elseif($leave->hod_remark == 1)
-                                Approved
+                                <h1 class="text-green-600 font-semibold">Approved</h1>
                             @elseif($leave->hod_remark == 2)
-                                Rejected
+                                <h1 class="text-red-600 font-semibold">Rejected</h1>
                             @endif
                         </td>
                         <td >
                             @if($leave->admin_remark == 0)
-                                Pending
+                                <h1 class="text-yellow-600 font-semibold">Pending</h1>
                             @elseif($leave->admin_remark == 1)
-                                Approved
+                                <h1 class="text-green-600 font-semibold">Approved</h1>
                             @elseif($leave->admin_remark == 2)
-                                Rejected
+                                <h1 class="text-red-600 font-semibold">Rejected</h1>
                             @endif
                         </td>
 
@@ -73,9 +86,7 @@
                                     </svg>
                                 </a>
                             </button>
-
                         </td>
-
                     </tr>
                 @endforeach
                 </tbody>

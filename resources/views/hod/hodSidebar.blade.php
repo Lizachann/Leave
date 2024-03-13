@@ -2,8 +2,10 @@
      aria-labelledby="offcanvasExampleLabel">
 
     <div class="offcanvas-header flex ">
-        <img src=" {{ asset ('assets/images/TAFTAC_logo(white).png') }}" alt=" logo"
-             class='items-center ml-5 w-60 h-12' />
+        <a href="/home">
+            <img src=" {{ asset ('assets/images/TAFTAC_logo(white).png') }}" alt=" logo"
+                 class='items-center ml-5 w-60 h-12' />
+        </a>
         <button type="button" class="btn -mt-5 -mr-2 text-white text-4xl " data-bs-dismiss="offcanvas"
                 aria-label="Close" fdprocessedid="edqpv">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-text-left"
@@ -18,23 +20,21 @@
         <hr class='border-white mr-2 ml-2 mb-2 -mt-4 border-2' />
 
         <div class="text-white ">
-            <div class='treeview menu-open '>
-                <a class=' w-full h-16 hover:bg-blue-900 rounded flex items-center '>
+            <div class='treeview '>
+                <button class=' w-full h-16 hover:bg-blue-900 rounded flex items-center'  onclick="window.location.href = '/home';">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-house-door ml-[6%] w-6 h-6" viewBox="0 0 16 16">
                         <path
                             d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
                     </svg>
-                    <!-- <img src=" {{ asset ('assets/image/home.png') }}" alt=" Profile" class='ml-[6%] w-6 h-6  ' /> -->
                     <h1 class=' text-xl ml-[10%]'>Dashboard</h1>
-
-                </a>
+                </button>
             </div>
 
             <!-- leave -->
 
-            <div class=" treeview menu-open ">
-                <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+            <div class=" treeview">
+                <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center'>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-menu-button-wide-fill ml-[6%] w-6 h-6" viewBox="0 0 16 16">
@@ -72,7 +72,7 @@
                         </svg>
                         <h1 class='ml-[10%] text-l'>My Leave History</h1>
                     </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='{{route('hod_view_all_leave')}}'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='{{route('hod_view_staff_leave')}}'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-journal-bookmark-fill ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -82,51 +82,13 @@
                             <path
                                 d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
                         </svg>
-                        <h1 class='ml-[10%] text-l'>All Leave</h1>
-                    </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/pending/leave'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-journal-arrow-down ml-[20%] w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5" />
-                            <path
-                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                            <path
-                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                        </svg>
-                        <h1 class='ml-[10%] text-l'>Pending Leave</h1>
-                    </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/approved/leave'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-journal-check ml-[20%] w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0" />
-                            <path
-                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                            <path
-                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                        </svg>
-                        <h1 class='ml-[10%] text-l'>Approved Leave</h1>
-                    </a>
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/rejected/leave'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-journal-x ml-[20%] w-5 h-5" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708" />
-                            <path
-                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                            <path
-                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                        </svg>
-                        <h1 class='ml-[10%] text-l'>Rejected Leave</h1>
+                        <h1 class='ml-[10%] text-l'>All Staff Leave</h1>
                     </a>
                 </ul>
-
-
             </div>
             <!-- Staff -->
 
-            <div class=" treeview menu-open ">
+            <div class=" treeview  ">
                 <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -146,7 +108,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu ">
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/hod/manage/staff'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-person-gear ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path

@@ -21,20 +21,10 @@
                 <label class="font-semibold">
                     {{ \Carbon\Carbon::parse($leave->from_date)->format('d M Y') }}
                 </label>
-                @if($leave->from_time == 'am')
-                    <label class="font-semibold">AM</label>
-                @elseif($leave->from_time == 'pm')
-                    <label class="font-semibold">AM</label>
-                @endif
                 To
                 <label class="font-semibold">
                     {{ \Carbon\Carbon::parse($leave->to_date)->format('d M Y') }}
                 </label>
-                @if($leave->to_time == 'am')
-                    <label class="font-semibold">AM</label>
-                @elseif($leave->to_time == 'pm')
-                    <label class="font-semibold">PM</label>
-                @endif
             </p>
             @if($leave->admin_remark === 0 )
                 <h3 class="block text-blue-800 text-sm font-semibold leading-none ml-5 mb-10">

@@ -11,6 +11,22 @@ class HomeController extends Controller
 {
     public function index(){
 
+
+
+//                my hod
+        $hods = User::where('role', 'hod')
+            ->where('department' , Auth::user()->department)
+            ->get();
+
+//                same department staff
+        $same_departments = User::where('role', 'staff')
+            -> where('department' , Auth::user()->department)
+            -> get();
+
+//                all staff
+        $staffs = User::all();
+
+
         if(Auth::id()){
 
             $role=Auth()->user()->role;
@@ -20,37 +36,17 @@ class HomeController extends Controller
             if($role=='staff'){
 //                dashboard
                 $emp_id = Auth::user()->id;
-                $leaves = Tblleave::where('emp_id',$emp_id)->get();
-                $pendingLeaves = Tblleave::where('emp_id',$emp_id)
-                    -> where('admin_remark',0)
-                    ->get();
-                $approvedLeaves = Tblleave::where('emp_id',$emp_id)
-                    -> where('admin_remark',1)
-                    ->get();
-                $rejectedLeaves = Tblleave::where('emp_id',$emp_id)
-                    -> where('admin_remark',2)
-                    ->get();
 
-                $leaveCount = $leaves->count();
-                $countPending = $pendingLeaves->count();
-                $countApproved= $approvedLeaves->count();
-                $countRejected= $rejectedLeaves->count();
+//                $leaves = Tblleave::where('emp_id',$emp_id)->get();
 
-//                my hod
-                $hods = User::where('role', 'hod')
-                            ->where('department' , Auth::user()->department)
-                            ->get();
-
-//                same department staff
-                $same_departments = User::where('role', 'staff')
-                                        -> where('department' , Auth::user()->department)
-                                        -> get();
-
-//                all staff
-                $staffs = User::all();
+                $count = (new StaffController)->leave_history_dashboard();
+                $leaveCount = $count['leaveCount'];
+                $countPending = $count['countPending'];
+                $countApproved = $count['countApproved'];
+                $countRejected = $count['countRejected'];
 
                 return view('staff.staffhome', [
-                    'leaves' => $leaves,
+//                    'leaves' => $leaves,
                     'leaveCount'=> $leaveCount,
                     'countPending'=>$countPending,
                     'countApproved'=>$countApproved,
@@ -74,8 +70,44 @@ class HomeController extends Controller
 //  ********************************Hoddddddd************************************************************************************************************
 
             else if($role=='hod'){
+                $count = (new HodController)->leave_history_dashboard();
+                $leaveCount = $count['leaveCount'];
+                $countPending = $count['countPending'];
+                $countApproved = $count['countApproved'];
+                $countRejected = $count['countRejected'];
 
-                return view('hod.hodhome');
+                $counts = (new HodController)->staff_leave_dashboard();
+                $leaveCounts = $counts['leaveCount'];
+                $countsPending = $counts['countPending'];
+                $countsApproved = $counts['countApproved'];
+                $countsRejected = $counts['countRejected'];
+
+                $allEmployee = User::all()->count();
+                $allLeave = Tblleave::all()->count();
+                $female = User::where('gender', 'Female')->count();
+                $ownDp = User::where('department',Auth::user()->department)->where('role','staff')->count();
+
+                $allHods = User::where('role', 'hod')->get();
+
+
+
+                return view('hod.homepage.hodhome',[
+                    'leaveCount'=> $leaveCount,
+                    'countPending'=>$countPending,
+                    'countApproved'=>$countApproved,
+                    'countRejected'=>$countRejected,
+                    'leaveCounts'=> $leaveCounts,
+                    'countsPending'=>$countsPending,
+                    'countsApproved'=>$countsApproved,
+                    'countsRejected'=>$countsRejected,
+                    'allEmployee' => $allEmployee,
+                    'allLeave' => $allLeave,
+                    'female'=> $female,
+                    'ownDp' => $ownDp,
+                    'hods' => $allHods ,
+                    'same_departments' => $same_departments,
+                    'staffs' => $staffs,
+                ]);
             }
         }
     }

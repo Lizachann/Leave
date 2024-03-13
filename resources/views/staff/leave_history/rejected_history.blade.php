@@ -26,7 +26,7 @@
 
 {{--        show reject leave history--}}
     <div class="view_dataTable">
-        <div class="container wrapper pt-2 sm:px-18 lg:px-28 apply-form  ">
+        <div class="container wrapper own_leave pt-2 sm:px-18 lg:px-28 apply-form  ">
 
             <table class="table table-bordered table-hover pt-3  ">
 

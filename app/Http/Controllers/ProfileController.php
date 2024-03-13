@@ -87,11 +87,9 @@ class ProfileController extends Controller
         }else  if(Auth::user()->role === 'admin'){
             $goto = 'admin_view_leave_detail';
         }
-//        else  if(Auth::user()->role === 'staff'){
-//            $goto = 'staff_view_leave_detail';
-//        }
-
-
+        else  if(Auth::user()->role === 'hod'){
+            $goto = 'hod_view_leave_detail';
+        }
 
         return view('profile.profile',[
             'leaves' => $leaves,
@@ -134,9 +132,42 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('profile') ->
+        return redirect()->back() ->
         with(
             'success' , 'Password updated successfully!'
-        );    }
+        );
+    }
+
+    public function store(Request $request) {
+
+        $userId = Auth::id();
+        $profileImage = $request->file('profile');
+
+        // Validate the uploaded file
+        $request->validate([
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size is 2MB (2048 KB)
+        ]);
+
+        try{
+            if ($profileImage) {
+                $originalFilename = $userId . '_' . $profileImage->getClientOriginalName();
+
+                // Store the uploaded file with its original name
+                $profileImagePath = $profileImage->storeAs('profile_images', $originalFilename, 'public');
+
+                // Save the profile image path to the database for the user
+                User::where('id', $userId)->update(['profile' => $profileImagePath]);
+            }
+
+            return redirect()->back()->with('success', 'Profile Uploaded successfully!');
+        } catch (\Exception $e) {
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to Uploaded Profile!');
+        }
+
+
+
+    }
+
 
 }

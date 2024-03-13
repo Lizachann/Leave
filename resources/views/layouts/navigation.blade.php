@@ -23,8 +23,15 @@
                     <x-slot name="trigger" >
                         <button class="inline-flex items-center px-3 py-2 text-lg leading-4 font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }} </div>
-                            <img src=" {{ asset ('assets/images/user.jpg') }}" alt=" Profile"
-                                 class= 'rounded-full object-cover w-10 h-10 ml-5' />
+                            <div class="image-container rounded-full object-cover w-10 h-10 ml-5">
+                                <!-- If profile picture exists, display it with the same size -->
+                                @if (Auth::user()->profile)
+                                    <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile" class="rounded-full object-cover w-full h-full">
+                                @else
+                                    <!-- Default profile picture -->
+                                    <img src="{{ asset('assets/images/user.jpg') }}" alt="Profile" class="rounded-full object-cover w-full h-full">
+                                @endif
+                            </div>
                         </button>
                     </x-slot>
 

@@ -8,8 +8,8 @@ $(document).ready(function() {
         language: {
             //customize pagination prev and next buttons: use arrows instead of words
             'paginate': {
-                'previous': '<span class="fa fa-chevron-left"></span>',
-                'next': '<span class="fa fa-chevron-right"></span>'
+                'previous': '<span "> <i class="fa fa-chevron-left"></i> </span>',
+                'next': '<span class="fa fa-chevron-right "></span>'
             },
             //customize number of elements to be displayed
             "lengthMenu": 'Display <select class="form-control input-sm">'+

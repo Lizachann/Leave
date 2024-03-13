@@ -9,7 +9,7 @@
         </div>
         <div class="form-group ">
             <label for="password" class="control-label mb-3 ">New Password</label>
-            <input id="password" name="password" type="password" class="border border-black w-full rounded mb-3" autocomplete="new-password">
+            <input id="password" name="password" type="text" class="border border-black w-full rounded mb-3" autocomplete="new-password">
             <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 mb-3" />
         </div>
         {{--        <div class="form-group">--}}
@@ -22,8 +22,3 @@
         <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 ">Update Password</button>
     </div>
 </form>
-@if (session('success'))
-    <script>
-        alert("{{ session('success') }}");
-    </script>
-@endif

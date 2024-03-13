@@ -111,18 +111,8 @@
                                                 <label class="form-control border-black bg-gray-200" >
                                                     <label class="font-semibold">From </label>
                                                     {{ $leave->from_date }}
-                                                    @if($leave->from_time == 'am')
-                                                        AM
-                                                    @elseif($leave->from_time == 'pm')
-                                                        PM
-                                                    @endif
                                                     <label class="font-semibold">To</label>
                                                     {{$leave->to_date}}
-                                                    @if($leave->to_time == 'am')
-                                                        AM
-                                                    @elseif($leave->to_time == 'pm')
-                                                        PM
-                                                    @endif
                                                 </label>
                                             </div>
 

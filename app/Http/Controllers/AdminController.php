@@ -13,17 +13,19 @@ use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
-    public function post(){
-
-            return view('post');
-        }
-
     /**
      * Display the registration view.
      */
     public function addStaff()
     {
-        return view('admin.addStaff');
+        $currentID = User::latest()->value('staff_ID');
+        $numericPart = (int)substr($currentID, 1); // Extract numeric part and convert to integer
+        $nextNumericPart = $numericPart + 1; // Increment numeric part by 1
+        $nextID = "G" . str_pad($nextNumericPart, strlen($currentID) - 1, "0", STR_PAD_LEFT);
+
+        return view('admin.addStaff',[
+            'nextID' => $nextID
+        ]);
     }
 
     /**
@@ -32,10 +34,6 @@ class AdminController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
 
-//
-
-
-
     public function storeAddStaff(Request $request)
     {
         $validatedData = $request->validate([
@@ -43,7 +41,6 @@ class AdminController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => 'required|string|max:255|email|unique:users,email',
             'password' => 'required|string|min:4',
-            'staff_ID' => ['required', 'string', 'max:255'],
             'position_staff' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'dob' => ['required', 'string', 'max:255'],
@@ -52,73 +49,69 @@ class AdminController extends Controller
             'av_leave' => ['required', 'string', 'max:255'],
             'phone_num' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
-         ]);
+        ]);
 
-        $user = new User();
-        $user->first_name = $validatedData['first_name'];
-        $user->last_name = $validatedData['last_name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->staff_ID = $validatedData['staff_ID'];
-        $user->position_staff = $validatedData['position_staff'];
-        $user->gender = $validatedData['gender'];
-        $user->dob = $validatedData['dob'];
-        $user->department = $validatedData['department'];
-        $user->address = $validatedData['address'];
-        $user->av_leave = $validatedData['av_leave'];
-        $user->phone_num = $validatedData['phone_num'];
-        $user->role = $validatedData['role'];
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
+        $user = new User($validatedData);
+
+        $user->staff_ID = $request->input('staff_ID');
         $user->save();
 
         return redirect()->route('admin.addStaff')->with('success', 'User created successfully!');
     }
 
+
     public function view_all_leave(){
 
         $leaves = Tblleave::all();
-
         $employees = User::all();
+        $pages = 0;
 
-        return view('admin.view_leave.all_leave', [
+        return view('admin.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
+            'pages' => $pages,
         ]);
     }
 
     public function view_pending_leave(){
 
+
         $leaves = Tblleave::where('admin_remark', 0 )->get();
-
         $employees = User::all();
+        $pages = 1;
 
-        return view('admin.view_leave.pending_leave', [
+        return view('admin.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
+            'pages' => $pages,
         ]);
     }
 
     public function view_approved_leave(){
 
         $leaves = Tblleave::where('admin_remark', 1)->get();
-
         $employees = User::all();
+        $pages = 2;
 
-        return view('admin.view_leave.approved_leave', [
+        return view('admin.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
+            'pages' => $pages,
         ]);
     }
 
     public function view_rejected_leave(){
 
         $leaves = Tblleave::where('admin_remark', 2 )->get();
-
         $employees = User::all();
+        $pages = 3;
 
-        return view('admin.view_leave.rejected_leave', [
+        return view('admin.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
+            'pages' => $pages,
         ]);
     }
 

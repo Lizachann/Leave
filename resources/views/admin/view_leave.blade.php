@@ -6,7 +6,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg -mt-5">
                 <div class="px-6 pt-3 text-xl leading-tight font-semibold">
-                    {{ __("Pending Leave") }}
+                    @if($pages == 0)
+                        All Leave
+                    @elseif($pages == 1)
+                        Pending Leave
+                    @elseif($pages == 2)
+                        Approved Leave
+                    @elseif($pages == 3)
+                        Rejected Leave
+                    @endif
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
@@ -38,7 +46,6 @@
                     <th class="col-md-2">Action</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 @foreach($leaves as $leave)
 

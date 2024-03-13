@@ -2,8 +2,10 @@
      aria-labelledby="offcanvasExampleLabel">
 
     <div class="offcanvas-header flex ">
-        <img src=" {{ asset ('assets/images/TAFTAC_logo(white).png') }}" alt=" logo"
-             class='items-center ml-5 w-60 h-12' />
+        <a href="/home">
+            <img src=" {{ asset ('assets/images/TAFTAC_logo(white).png') }}" alt=" logo"
+                 class='items-center ml-5 w-60 h-12' />
+        </a>
         <button type="button" class="btn -mt-5 -mr-2 text-white text-4xl " data-bs-dismiss="offcanvas"
                 aria-label="Close" fdprocessedid="edqpv">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-text-left"

@@ -80,3 +80,13 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Edit Staff Information successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to Change Staff Information!');
+    @endif
+
+</script>

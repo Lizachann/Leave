@@ -25,33 +25,27 @@ class StaffController extends Controller
             'leave_type' => ['required', 'string', 'max:255'],
             'request_days' => ['required', 'string', 'max:255'],
             'from_date' => ['required', 'string', 'max:255'],
-            'from_time' => ['required', 'string', 'max:255'],
             'to_date' => ['required', 'string', 'max:255'],
-            'to_time' => ['required', 'string', 'max:255'],
             'work_covered' => ['required', 'string', 'max:255'],
 
         ]);
+        try{
 
-        $leave = new Tblleave();
-        $leave->leave_type = $validatedData['leave_type'];
-        $leave->request_days = $validatedData['request_days'];
+        $leave = new Tblleave($validatedData);
         $leave->leaveDays_left = Auth::user()->av_leave;
-        $leave->from_date = $validatedData['from_date'];
-        $leave->from_time = $validatedData['from_time'];
-        $leave->to_date = $validatedData['to_date'];
-        $leave->to_time = $validatedData['to_time'];
-        $leave->work_covered = $validatedData['work_covered'];
         $leave->emp_id = Auth::user()->id;
 
-        $leave->hod_remark = '0';
-        $leave->hod_date = '0';
-        $leave->admin_remark = '0';
-        $leave->admin_date = '0';
-
-
         $leave->save();
-        return redirect()->route('staff.applyLeave')->with('success', 'Apply Leave Successfully!!');
+
+        return redirect()->route('staff_view_leave_detail', ['id' => $leave->id])
+            ->with('success', 'Apply Leave Successfully!!');
+
+        } catch (\Exception $e) {
+    // Redirect back with error message
+        return redirect()->back()->with('error', 'Failed to apply leave data!');
+        }
     }
+
 
     public function leave_history_dashboard(){
 
@@ -77,7 +71,7 @@ class StaffController extends Controller
             'countPending'=>$countPending,
             'countApproved'=>$countApproved,
             'countRejected'=>$countRejected
-            ] ;
+        ] ;
     }
 
     public function leave_history(){

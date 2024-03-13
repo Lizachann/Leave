@@ -1,5 +1,3 @@
-
-
 .view_dataTable .dataTables_filter {
     float: right;
 }
@@ -7,6 +5,7 @@
 .view_dataTable .table {
     max-width: 100% !important;
 }
+
 
 .view_dataTable thead {
     background: #ddd;
@@ -59,10 +58,6 @@
     }
 
 
-
-
-
-
     .view_dataTable td:nth-of-type(1):before {
         content: "Staff Name";
     }
@@ -81,9 +76,48 @@
     .view_dataTable td:nth-of-type(6):before {
         content: "Action";
     }
-    .view_dataTable td:nth-of-type(7):before {
+    .view_dataTable .own_leave td:nth-of-type(1):before {
+        content: "Leave Type";
+    }
+    .view_dataTable .own_leave td:nth-of-type(2):before {
+        content: "Start Date";
+    }
+    .view_dataTable .own_leave td:nth-of-type(3):before {
+         content: "End Date";
+     }
+    .view_dataTable .own_leave td:nth-of-type(4):before {
+        content: "Leave days";
+    }
+    .view_dataTable .own_leave td:nth-of-type(5):before {
+        content: "HOD status";
+    }
+    .view_dataTable .own_leave td:nth-of-type(6):before {
+        content: "Admin status";
+    }
+    .view_dataTable .own_leave td:nth-of-type(7):before {
         content: "Action";
     }
+
+    .view_dataTable .staff_info td:nth-of-type(1):before {
+        content: "Full Name";
+    }
+    .view_dataTable .staff_info td:nth-of-type(2):before {
+        content: "Email";
+    }
+    .view_dataTable .staff_info td:nth-of-type(3):before {
+        content: "Phone Number";
+    }
+    .view_dataTable .staff_info td:nth-of-type(4):before {
+        content: "Position";
+    }
+    .view_dataTable .staff_info td:nth-of-type(5):before {
+        content: "Leave Days Leave";
+    }
+    .view_dataTable .staff_info td:nth-of-type(6):before {
+        content: "Action";
+    }
+
+
 
     .view_dataTable .dataTables_length {
         display: none;

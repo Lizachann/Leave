@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('staff_ID');
+            $table->string('staff_ID')->unique();
             $table->string('position_staff');
             $table->string('gender');
             $table->string('dob');
@@ -29,20 +29,9 @@ return new class extends Migration
             $table->string('av_leave');
             $table->string('phone_num');
             $table->string('role');
+            $table->string('profile');
             $table->rememberToken();
             $table->timestamps();
-
-//            $table->id();
-//            $table->string('name');
-//            $table->string('email')->unique();
-//            $table->timestamp('email_verified_at')->nullable();
-//            $table->string('password');
-//            $table->string("role");
-//            $table->rememberToken();
-//            $table->timestamps();
-
-
-
         });
     }
 

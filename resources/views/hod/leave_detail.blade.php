@@ -1,10 +1,8 @@
 <x-app-layout>
-    @foreach($leaves as $leave)
-    @foreach ($employees as $employee)
-        <form method="POST" action="{{ route('hod_approval', ['id' => $leave->id]) }}">
+    <form method="POST" action="{{ route('hod_approval', [$id]) }}" >
         @csrf
-        @method('POST')
-
+            @foreach($leaves as $leave)
+            @foreach ($employees as $employee)
         {{--    header--}}
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 -mt-5 ">
@@ -63,8 +61,7 @@
                                     <div class="form-group required col-md-4 my-2 ">
                                         <label class="control-label mb-2 font-semibold ">Phone Number</label>
                                         <label class="form-control border-black bg-gray-200 h-10" >
-                                            {{ $employee->phone_num }}
-
+                                            {{$employee->phone_num}}
                                         </label>
                                     </div>
 
@@ -113,18 +110,8 @@
                                         <label class="form-control border-black bg-gray-200 h-10" >
                                             <label class="font-semibold">From </label>
                                             {{ $leave->from_date }}
-                                            @if($leave->from_time == 'am')
-                                                AM
-                                            @elseif($leave->from_time == 'pm')
-                                                PM
-                                            @endif
                                             <label class="font-semibold">To</label>
                                             {{$leave->to_date}}
-                                            @if($leave->to_time == 'am')
-                                                AM
-                                            @elseif($leave->to_time == 'pm')
-                                                PM
-                                            @endif
                                         </label>
                                     </div>
 
@@ -156,7 +143,8 @@
                                                     Change from Approved to
                                                 @elseif($leave->hod_remark == 2)
                                                     Change from Rejected to
-                                                @endif </option>
+                                                @endif
+                                            </option>
                                             <option value="1">Approved</option>
                                             <option value="2">Rejected</option>
                                         </select>
@@ -196,29 +184,33 @@
                                             @endif
                                         </label>
                                     </div>
-                                    <div class="flex mt-8 justify-between items-center x">
-                                       <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Changed Statues</button>
-                                    </div>
                                 </div>
-
-
+                                <div class="flex mt-8 justify-between items-center x">
+                                    <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Changed Statues </button>
+                                    {{--                                        {{ dd(session('success')) }}--}}
+                                </div>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-
-    </form>
         @endforeach
-    @endforeach
-        @if (session()->has('success'))
-            <script>
-                window.onload = function() {
-                    alert("{{ session('success') }}");
-                };
-            </script>
-        @endif
+            @endforeach
+</form>
 
 </x-app-layout>
+
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+        showSuccessAlert('Change Status Approval successfully!');
+    @endif
+    @if(session('error'))
+        showErrorAlert('Failed to Change Status Approval!');
+    @endif
+</script>
+
+
 

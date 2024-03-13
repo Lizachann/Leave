@@ -14,10 +14,6 @@
                             Home
                         </a>
                         >
-                        <a href="">
-                            Leave
-                        </a>
-                        >
                         <a href="/hod/applyleave">
                             Apply Leave
                         </a>
@@ -80,32 +76,12 @@
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">From Date</label>
-                                        <div class="flex">
-                                            <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy ">
-                                            <div class="pl-[3%]">
-                                                <select name="from_time" class="rounded-lg focus:ring-blue-500
-                                            focus:border-blue-500 block w-full p-2.5 border border-black" required >
-                                                    <option value="">Select Time </option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy ">
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">To Date</label>
-                                        <div class="flex">
-                                            <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy">
-                                            <div class="pl-[3%]">
-                                                <select name="to_time" class="rounded-lg focus:ring-blue-500
-                                            focus:border-blue-500 block w-full p-2.5 border border-black" required>
-                                                    <option value="" >Select Time </option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy">
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
@@ -126,8 +102,8 @@
 
                                 </div>
                                 <div class="flex mt-8 justify-between items-center x">
-                                    <button type="submit"  class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply</button>
-
+                                    <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply  </button>
+{{--                                    {{ dd(session('success')) }}--}}
                                 </div>
                             </form>
                         </div>
@@ -135,19 +111,15 @@
                 </div>
             </div>
         </div>
-        @if (session('success'))
-        <script>
-            // Show success alert
-            alert("{{ session('success') }}");
-        </script>
-        @endif
-
-{{--        @if (session('error'))--}}
-{{--            <script>--}}
-{{--                // Show error alert--}}
-{{--                alert("{{ session('error') }}");--}}
-{{--            </script>--}}
-{{--        @endif--}}
     </form>
 </x-app-layout>
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Apply Leave successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to apply leave data!');
+    @endif
 
+</script>
