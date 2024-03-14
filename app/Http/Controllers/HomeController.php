@@ -25,6 +25,10 @@ class HomeController extends Controller
 
 //                all staff
         $staffs = User::all();
+        $allEmployee = User::all()->count();
+        $allLeave = Tblleave::all()->count();
+        $female = User::where('gender', 'Female')->count();
+        $allHods = User::where('role', 'hod')->get();
 
 
         if(Auth::id()){
@@ -45,7 +49,7 @@ class HomeController extends Controller
                 $countApproved = $count['countApproved'];
                 $countRejected = $count['countRejected'];
 
-                return view('staff.staffhome', [
+                return view('staff.homepage.staffhome', [
 //                    'leaves' => $leaves,
                     'leaveCount'=> $leaveCount,
                     'countPending'=>$countPending,
@@ -64,7 +68,55 @@ class HomeController extends Controller
 
             else if($role=='admin'){
 
-                return view('admin.adminhome');
+
+                $adminCount = User::where('department','Admin')
+                                    ->whereIn('role',['staff','hod'])
+                                    ->count();
+                $labourCount = User::where('department','Labour')
+                    ->whereIn('role',['staff','hod'])
+                    ->count();
+                $itCount = User::where('department','IT')
+                    ->whereIn('role',['staff','hod'])
+                    ->count();
+                $prCount = User::where('department','PR')
+                    ->whereIn('role',['staff','hod'])
+                    ->count();
+                $financeCount = User::where('department','Finance')
+                    ->whereIn('role',['staff','hod'])
+                    ->count();
+                $membershipCount = User::where('department','Membership')
+                    ->whereIn('role',['staff','hod'])
+                    ->count();
+
+                $count = (new AdminController())->staff_leave_dashboard();
+                $leaveCount = $count['leaveCount'];
+                $countPending = $count['countPending'];
+                $countApproved = $count['countApproved'];
+                $countRejected = $count['countRejected'];
+
+                $hodCount = User::where('role', 'hod')->count();
+                $allStaff = User::where('role', 'staff')->count();
+
+
+                return view('admin.homepage.adminhome',[
+                    'allEmployee' => $allEmployee,
+                    'allLeave' => $allLeave,
+                    'hodCount'=>$hodCount,
+                    'allStaff'=>$allStaff,
+                    'hods' => $allHods ,
+                    'same_departments' => $same_departments,
+                    'staffs' => $staffs,
+                    'admin'=>$adminCount,
+                    'labour'=>$labourCount,
+                    'it'=>$itCount,
+                    'pr'=>$prCount,
+                    'finance'=>$financeCount,
+                    'membership'=>$membershipCount,
+                    'leaveCount'=> $leaveCount,
+                    'countPending'=>$countPending,
+                    'countApproved'=>$countApproved,
+                    'countRejected'=>$countRejected,
+                    ]);
             }
 
 //  ********************************Hoddddddd************************************************************************************************************
@@ -82,12 +134,8 @@ class HomeController extends Controller
                 $countsApproved = $counts['countApproved'];
                 $countsRejected = $counts['countRejected'];
 
-                $allEmployee = User::all()->count();
-                $allLeave = Tblleave::all()->count();
-                $female = User::where('gender', 'Female')->count();
-                $ownDp = User::where('department',Auth::user()->department)->where('role','staff')->count();
 
-                $allHods = User::where('role', 'hod')->get();
+                $ownDp = User::where('department',Auth::user()->department)->where('role','staff')->count();
 
 
 

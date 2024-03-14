@@ -62,16 +62,47 @@ class AdminController extends Controller
     }
 
 
+    public function staff_leave_dashboard(){
+
+        $leaves = Tblleave::all();
+        $pendingLeaves = Tblleave::where('admin_remark',0)->get();
+        $approvedLeaves = Tblleave::where('admin_remark',1)->get();
+        $rejectedLeaves = Tblleave::where('admin_remark',2)->get();
+
+        $leaveCount = $leaves->count();
+        $countPending = $pendingLeaves->count();
+        $countApproved= $approvedLeaves->count();
+        $countRejected= $rejectedLeaves->count();
+        return [
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected
+        ] ;
+    }
+
+
+
     public function view_all_leave(){
 
         $leaves = Tblleave::all();
         $employees = User::all();
-        $pages = 0;
 
-        return view('admin.view_leave', [
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 0;
+
+        return view('admin.view_leave.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
-            'pages' => $pages,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
         ]);
     }
 
@@ -80,12 +111,22 @@ class AdminController extends Controller
 
         $leaves = Tblleave::where('admin_remark', 0 )->get();
         $employees = User::all();
-        $pages = 1;
 
-        return view('admin.view_leave', [
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 1;
+
+        return view('admin.view_leave.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
-            'pages' => $pages,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
         ]);
     }
 
@@ -93,12 +134,22 @@ class AdminController extends Controller
 
         $leaves = Tblleave::where('admin_remark', 1)->get();
         $employees = User::all();
-        $pages = 2;
 
-        return view('admin.view_leave', [
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 2;
+
+        return view('admin.view_leave.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
-            'pages' => $pages,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
         ]);
     }
 
@@ -106,14 +157,116 @@ class AdminController extends Controller
 
         $leaves = Tblleave::where('admin_remark', 2 )->get();
         $employees = User::all();
-        $pages = 3;
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 3;
 
-        return view('admin.view_leave', [
+        return view('admin.view_leave.view_leave', [
             'leaves' => $leaves,
             'employees' => $employees,
-            'pages' => $pages,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
         ]);
     }
+
+
+
+    public function annual_leave(){
+
+        $leaves = Tblleave::where('leave_type','Annual Leave')->get();
+        $employees = User::all();
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 4;
+
+        return view('admin.view_leave.view_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+    public function medical_leave(){
+
+        $leaves = Tblleave::where('leave_type','Medical Leave')->get();
+        $employees = User::all();
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 5;
+
+        return view('admin.view_leave.view_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+    public function compensatory_leave(){
+
+
+        $leaves = Tblleave::where('leave_type','Compensatory Leave')->get();
+        $employees = User::all();
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 6;
+
+        return view('admin.view_leave.view_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+    public function maternity_leave(){
+
+        $leaves = Tblleave::where('leave_type','Maternity Leave')->get();
+        $employees = User::all();
+        $counts = $this->staff_leave_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 7;
+
+        return view('admin.view_leave.view_leave', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+
 
     public function view_leave_detail($id){
 
@@ -133,7 +286,8 @@ class AdminController extends Controller
 
     }
 
-    public function admin_approval(Request $request, $id){
+    public function admin_approval(Request $request, $id)
+    {
 
         $leave = Tblleave::findOrFail($id);
 
@@ -145,20 +299,20 @@ class AdminController extends Controller
 
         $employee = User::findOrFail($emp_id);
 
-        if($leave->admin_remark == 1 && $leave->leave_type === "Annual Leave"){
-                $leaveDays_left = $employee->av_leave - $leave->request_days;
-                $employee->av_leave = $leaveDays_left;
-                foreach ($allLeaves as $allLeave){
-                    $leaveId = $allLeave->emp_id;
-                    if($leaveId == $emp_id){
-                        $allLeave->leaveDays_left = $leaveDays_left;
-                    }
-                    $allLeave->save();
-                }
-            }else{
-            foreach ($allLeaves as $allLeave){
+        if ($leave->admin_remark == 1 && $leave->leave_type === "Annual Leave") {
+            $leaveDays_left = $employee->av_leave - $leave->request_days;
+            $employee->av_leave = $leaveDays_left;
+            foreach ($allLeaves as $allLeave) {
                 $leaveId = $allLeave->emp_id;
-                if($leaveId == $emp_id){
+                if ($leaveId == $emp_id) {
+                    $allLeave->leaveDays_left = $leaveDays_left;
+                }
+                $allLeave->save();
+            }
+        } else {
+            foreach ($allLeaves as $allLeave) {
+                $leaveId = $allLeave->emp_id;
+                if ($leaveId == $emp_id) {
                     $allLeave->leaveDays_left = $employee->av_leave;
                 }
                 $allLeave->save();
@@ -168,17 +322,209 @@ class AdminController extends Controller
         $employee->save();
         $leave->save();
 
-        return redirect()->route('view_all_leave') ->
+        return redirect()->route('view_all_leave')->
         with(
-            'success' , 'Change Status Approval successfully!'
+            'success', 'Change Status Approval successfully!'
         );
-
-
-//        return redirect()->route('view_leave_detail', [$id]) ->
-//        with(
-//            'success' , 'Change Status Approval successfully!'
-//         );
     }
+
+    public function staff_detail( $id){
+
+        $employees = User::where('id', $id)->get();
+
+        return view('admin.manage_staff.staff_info_detail', [
+            'employees' => $employees,
+            'id' => $id,
+        ]);
+
+    }
+
+    public function edit_staff_detail(Request $request, $id){
+        try {
+
+            User::where('id', $id)->update([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'phone_num' => $request->input('phone_num'),
+                'position_staff' => $request->input('position_staff'),
+                'gender' => $request->input('gender'),
+                'dob' => $request->input('dob'),
+                'address' => $request->input('address')
+            ]);
+
+
+            return redirect()->back()->with('success', 'Edit Staff Information successfully!');
+        } catch (\Exception $e) {
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to Change Staff Information!');
+        }
+    }
+
+
+    public function view_staff(){
+
+        $employees = User::whereIn('role',['staff','hod'])->get();
+
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 0;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+
+    public function view_admin(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+                        ->where('department', 'Admin')
+                        ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 1;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+
+    public function view_labour(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+            ->where('department', 'Labour')
+            ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 2;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+    public function view_pr(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+            ->where('department', 'PR')
+            ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 3;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+    public function view_finance(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+            ->where('department', 'Finance')
+            ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 4;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+    public function view_membership(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+            ->where('department', 'Membership')
+            ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 5;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+    public function view_it(){
+
+        $employees = User::whereIn('role', ['staff', 'hod'])
+            ->where('department', 'IT')
+            ->get();
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $allStaff = User::where('role', 'staff')->count();
+        $page = 6;
+
+        return view('admin.manage_staff.view_staff',[
+            'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'allStaff'=>$allStaff,
+            'page'=>$page,
+        ]);
+    }
+
+
+
+
+
+//        public function destroy($id)
+//        {
+//            try {
+//                // Find the leave record by ID
+//                $leave = Tblleave::findOrFail($id);
+//
+//                // Optionally, perform validation or authorization checks here
+//
+//                // Delete the leave record
+//                $leave->delete();
+//
+//                // Redirect back with success message
+//                return redirect()->back()->with('success', 'Leave record deleted successfully!');
+//            } catch (\Exception $e) {
+//                // Handle any exceptions (e.g., if leave record not found)
+//                return redirect()->back()->with('error', 'Failed to delete leave record: ' . $e->getMessage());
+//            }
+//        }
 
 
 

@@ -70,6 +70,14 @@
         } else {
             this.expand(treeviewMenu, parentLi)
         }
+
+        // Navigate to the URL specified in the anchor tag
+        if (this.options.followLink) {
+            var href = link.attr('href')
+            if (href && href !== '#') {
+                window.location.href = href
+            }
+        }
     }
 
     Tree.prototype.expand = function (tree, parent) {
@@ -110,11 +118,11 @@
 
     // Plugin Definition
     // =================
+
     function Plugin(option) {
         return this.each(function () {
             var $this = $(this)
             var data  = $this.data(DataKey)
-            console.log(DataKey)
 
             if (!data) {
                 var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option)
@@ -176,4 +184,3 @@
     tree.append(parent);
     sidebar.append(tree);
 }(jQuery)
-

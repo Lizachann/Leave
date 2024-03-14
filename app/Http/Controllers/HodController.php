@@ -485,8 +485,20 @@ class HodController extends Controller
             ->where('role', 'staff')
             ->get();
 
+        $allEmployee = User::all()->count();
+        $female = User::where('gender','Female')->count();
+        $headDp = User::where('role','hod')->count();
+        $ownDp = $employees->count();
+
+
+
+
         return view('hod.manage_staff.view_staff',[
             'employees' => $employees,
+            'allEmployee'=>$allEmployee,
+            'female'=>$female,
+            'headDp'=>$headDp,
+            'ownDp'=>$ownDp
         ]);
     }
 

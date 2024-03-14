@@ -62,7 +62,10 @@
 
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Staff ID</label>
-                                            <input type="text" name="staff_ID" class="form-control rounded border-black" value="{{ $nextID }}">
+{{--                                            <input type="text" name="staff_ID" class="form-control rounded border-black" value="{{ $nextID }}">--}}
+                                            <label class="form-control border-black bg-gray-200 h-10" >
+                                                {{ $nextID }}
+                                            </label>
                                         </div>
 
                                         <div class="form-group required col-md-6 mt-4 ">

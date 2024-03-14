@@ -22,7 +22,7 @@
         </div>
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3 ">Date Of Birth</label>
-            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{Auth::User()->dob}}">
+            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::parse(Auth::User()->dob)->format('d M Y') }}">
         </div>
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3 ">Gender</label>

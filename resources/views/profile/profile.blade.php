@@ -1,3 +1,4 @@
+
 <x-app-layout>
 
     {{--        header--}}
@@ -57,17 +58,29 @@
                         </div>
 
                         <div id="tab1_1" class="tabcontent ">
-                            @include('profile.leave_record.all_leave')
+                            <h1 class="text-xl font-semibold text-[#4863A0] pb-4 ">
+                                All Record
+                            </h1>
+                            @include('profile.leave_record')
                         </div>
 
                         <div id="tab1_2" class="tabcontent">
-                            @include('.profile.leave_record.pending_leave')
+                            <h1 class="text-xl font-semibold text-[#4863A0] pb-4 ">
+                                Pending Record
+                            </h1>
+                            @include('.profile.leave_record',['leaves' => $pending_leaves])
                         </div>
                         <div id="tab1_3" class="tabcontent">
-                            @include('.profile.leave_record.approve_leave')
+                            <h1 class="text-xl font-semibold text-[#4863A0] pb-4 ">
+                                Approved Record
+                            </h1>
+                            @include('.profile.leave_record',['leaves' => $approved_leaves])
                         </div>
                         <div id="tab1_4" class="tabcontent">
-                            @include('.profile.leave_record.rejected_leave')
+                            <h1 class="text-xl font-semibold text-[#4863A0] pb-4 ">
+                                Rejected Record
+                            </h1>
+                            @include('.profile.leave_record',['leaves' => $rejected_leaves])
                         </div>
 
                         <div id="tab2" class="tabcontent">
@@ -87,6 +100,9 @@
     @endif
     @if(session('error'))
     showErrorAlert('Failed to Change Staff Information!');
+    @endif
+    @if(session('file_error'))
+    showErrorAlert('File size exceeds the maximum allowed limit of 2MB!');
     @endif
 
 </script>

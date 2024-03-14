@@ -1,4 +1,3 @@
-
 <x-app-layout class="bg-gray-100">
 
     {{--        header--}}
@@ -6,23 +5,78 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg -mt-5">
                 <div class="px-6 pt-3 text-xl leading-tight font-semibold">
-                    {{ __("Leave History") }}
+                    @if($page == 0)
+                        All Leave
+                    @elseif($page == 1)
+                        Pending Leave
+                    @elseif($page == 2)
+                        Approved Leave
+                    @elseif($page == 3)
+                        Rejected Leave
+                    @elseif($page == 4)
+                        Annual Leave
+                    @elseif($page == 5)
+                        Medical Leave
+                    @elseif($page == 6)
+                        Compensatory Leave
+                    @elseif($page == 7)
+                        Maternity Leave
+                    @endif
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
                         Home
                     </a>
+                    >
+                    <a href="/staff/leave/history">
+                        All Leave
+                    </a>
+
 
                 </div>
             </div>
         </div>
     </div>
 {{--    dashboard--}}
-    @include('staff.leave_history.leave_history_dashboard')
+
+    <div class="-mt-14">
+        @include('staff.leave_history.leave_history_dashboard')
+    </div>
+    {{--    leave type--}}
+
+    <div class=" container apply-form pt-2 lg:pl-20 pl-14 -mt-8 mb-3" >
+        <div class="col-md-12">
+            <div class=" contact-support -mt-8">
+                <div class="row form-wrap  ">
+                    <div class="col-lg-3 col-md-6 w-fit mt-8  ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5  rounded" href="{{route('staff_annual')}}">
+                            Annual Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5  rounded" href="{{route('staff_medical')}}">
+                            Medical Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5 rounded" href="{{route('staff_compensatory')}}">
+                            Compensatory Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2  mr-5 rounded" href="{{route('staff_maternity')}}">
+                            Maternity Leave
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     {{--    show all leave history --}}
     <div class="view_dataTable">
-        <div class="own_leave container wrapper pt-2 sm:px-18 lg:px-28 apply-form  ">
+        <div class="own_leave container wrapper pt-2 sm:px-10 lg:px-20 apply-form  ">
 
             <table class="table table-bordered table-hover pt-3  ">
 
@@ -34,7 +88,7 @@
                     <th class="col-md-2">Leave Days</th>
                     <th class="col-md-2">HOD Status</th>
                     <th class="col-md-2">Admin Status</th>
-                    <th class="col-md-2">Action</th>
+                    <th class="col-md-1">Action</th>
                 </tr>
                 </thead>
 
@@ -47,20 +101,20 @@
                         <td>{{$leave->request_days}}</td>
                         <td>
                             @if($leave->hod_remark == 0)
-                                Pending
+                                <h1 class="text-yellow-600 font-semibold">Pending</h1>
                             @elseif($leave->hod_remark == 1)
-                                Approved
+                                <h1 class="text-green-600 font-semibold">Approved</h1>
                             @elseif($leave->hod_remark == 2)
-                                Rejected
+                                <h1 class="text-red-600 font-semibold">Rejected</h1>
                             @endif
                         </td>
                         <td >
                             @if($leave->admin_remark == 0)
-                                Pending
+                                <h1 class="text-yellow-600 font-semibold">Pending</h1>
                             @elseif($leave->admin_remark == 1)
-                                Approved
+                                <h1 class="text-green-600 font-semibold">Approved</h1>
                             @elseif($leave->admin_remark == 2)
-                                Rejected
+                                <h1 class="text-red-600 font-semibold">Rejected</h1>
                             @endif
                         </td>
 

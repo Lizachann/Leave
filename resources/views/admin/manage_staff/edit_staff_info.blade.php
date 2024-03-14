@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('edit_staff_detail',[$id]) }}" >
+<form method="post" action="{{ route('admin_edit_staff_detail',[$id]) }}" >
     @csrf
     @foreach($employees as $employee)
         <div class="container apply-form pt-2 sm:px-10 lg:px-20 -mt-8" >

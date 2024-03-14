@@ -138,7 +138,7 @@
                         <h1 class='ml-[10%] text-l'>Add staff</h1>
                     </a>
 
-                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='#'>
+                    <a class='w-full h-16 hover:bg-blue-900 rounded flex items-center' href='/admin/manage/staff'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-person-gear ml-[20%] w-5 h-5" viewBox="0 0 16 16">
                             <path

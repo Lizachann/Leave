@@ -47,16 +47,30 @@ Route::middleware(['auth','admin'])->group(function () {
         route::get('/admin/addStaff','addStaff')->name('admin.addStaff');
         route::post('/admin/addStaff','storeAddStaff')->name('admin.addStaff.store');
 //        view leave
-        route::get('/admin/all/leave','view_all_leave')->name('view_all_leave');
-        route::get('/admin/pending/leave','view_pending_leave');
-        route::get('/admin/approved/leave','view_approved_leave');
-        route::get('/admin/rejected/leave','view_rejected_leave');
+        route::get('/admin/all/leave','view_all_leave')->name('admin_view_staff_leave');
+        route::get('/admin/pending/leave','view_pending_leave')->name('admin_pending_staff_leave');
+        route::get('/admin/approved/leave','view_approved_leave')->name('admin_approved_staff_leave');
+        route::get('/admin/rejected/leave','view_rejected_leave')->name('admin_rejected_staff_leave');
 
         route::get('/admin/leave_detail/%&{id}$','view_leave_detail')->name('admin_view_leave_detail');
         route::post('/admin/leave_detail/%&{id}$','admin_approval')->name('admin_approval');
 
+        //leave type
+        route::get('/admin/leave/annual','annual_leave')->name('admin_annual');
+        route::get('/admin/leave/medical','medical_leave')->name('admin_medical');
+        route::get('/admin/leave/compensatory','compensatory_leave')->name('admin_compensatory');
+        route::get('/admin/leave/maternity','maternity_leave')->name('admin_maternity');
 
-
+//        manage staff
+        route::get('/admin/manage/staff','view_staff')->name('admin_view_staff');
+        route::get('/admin/staff{id}info','staff_detail')->name('admin_staff_detail');
+        route::post('/admin/staff{id}info','edit_staff_detail')->name('admin_edit_staff_detail');
+        route::get('/admin/mange/staff/admin','view_admin')->name('admin_view_admin');
+        route::get('/admin/mange/staff/labour','view_labour')->name('admin_view_labour');
+        route::get('/admin/mange/staff/it','view_it')->name('admin_view_it');
+        route::get('/admin/mange/staff/pr','view_pr')->name('admin_view_pr');
+        route::get('/admin/mange/staff/finance','view_finance')->name('admin_view_finance');
+        route::get('/admin/mange/staff/membership','view_membership')->name('admin_view_membership');
 
     });
 });
@@ -111,6 +125,11 @@ Route::middleware(['auth','staff'])->group(function () {
         route::get('/staff/leave/history/approved','approved_leave_history')->name('staff_approved_leave_history');
         route::get('/staff/leave/history/rejected','rejected_leave_history')->name('staff_rejected_leave_history');
 
+        //leave type
+        route::get('/staff/leave/annual','annual_leave')->name('staff_annual');
+        route::get('/staff/leave/medical','medical_leave')->name('staff_medical');
+        route::get('/staff/leave/compensatory','compensatory_leave')->name('staff_compensatory');
+        route::get('/staff/leave/maternity','maternity_leave')->name('staff_maternity');
 
         route::get('/staff/leave_detail/%&{id}$','view_leave_detail')->name('staff_view_leave_detail');
 

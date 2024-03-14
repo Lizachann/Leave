@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -91,12 +92,15 @@ class ProfileController extends Controller
             $goto = 'hod_view_leave_detail';
         }
 
+        $page = 0;
+
         return view('profile.profile',[
             'leaves' => $leaves,
             'goto' => $goto,
             'approved_leaves' => $approved_leaves,
             'rejected_leaves' => $rejected_leaves,
-            'pending_leaves' => $pending_leaves
+            'pending_leaves' => $pending_leaves,
+            'page' => $page
 
         ]);
     }
@@ -148,8 +152,24 @@ class ProfileController extends Controller
             'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size is 2MB (2048 KB)
         ]);
 
+
+        // Check if file size exceeds the maximum allowed size
+        if ($request->file('profile')->getSize() >2048 * 1024 ) { // Convert KB to bytes
+
+            return redirect()->back()->with('file_error', 'File size exceeds the maximum allowed limit of 2MB!');
+        }
+
         try{
             if ($profileImage) {
+
+                // Get the existing profile image path for the user
+                $existingProfilePath = User::where('id', $userId)->value('profile');
+
+                // If an existing profile image exists, delete it
+                if ($existingProfilePath) {
+                    Storage::disk('public')->delete($existingProfilePath);
+                }
+
                 $originalFilename = $userId . '_' . $profileImage->getClientOriginalName();
 
                 // Store the uploaded file with its original name
@@ -161,12 +181,10 @@ class ProfileController extends Controller
 
             return redirect()->back()->with('success', 'Profile Uploaded successfully!');
         } catch (\Exception $e) {
+
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to Uploaded Profile!');
         }
-
-
-
     }
 
 

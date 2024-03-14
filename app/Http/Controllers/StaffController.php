@@ -83,20 +83,22 @@ class StaffController extends Controller
         $countPending = $counts['countPending'];
         $countApproved = $counts['countApproved'];
         $countRejected = $counts['countRejected'];
+        $page = 0;
 
         return view('staff.leave_history.leave_history', [
             'leaves' => $leaves,
             'leaveCount'=> $leaveCount,
             'countPending'=>$countPending,
             'countApproved'=>$countApproved,
-            'countRejected'=>$countRejected
+            'countRejected'=>$countRejected,
+            'page' => $page
         ]);
     }
 
     public function pending_leave_history(){
 
         $emp_id = Auth::user()->id;
-        $pendingLeaves = Tblleave::where('emp_id',$emp_id)
+        $leaves = Tblleave::where('emp_id',$emp_id)
             -> where('admin_remark',0)
             ->get();
         $counts = $this->leave_history_dashboard();
@@ -104,19 +106,21 @@ class StaffController extends Controller
         $countPending = $counts['countPending'];
         $countApproved = $counts['countApproved'];
         $countRejected = $counts['countRejected'];
+        $page = 1;
 
-        return view('staff.leave_history.pending_history', [
-            'pendingLeaves'=>$pendingLeaves,
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
             'leaveCount'=> $leaveCount,
             'countPending'=>$countPending,
             'countApproved'=>$countApproved,
-            'countRejected'=>$countRejected
+            'countRejected'=>$countRejected,
+            'page' => $page
         ]);
     }
     public function approved_leave_history(){
 
         $emp_id = Auth::user()->id;
-        $approvedLeaves = Tblleave::where('emp_id',$emp_id)
+        $leaves = Tblleave::where('emp_id',$emp_id)
             -> where('admin_remark',1)
             ->get();
         $counts = $this->leave_history_dashboard();
@@ -124,19 +128,22 @@ class StaffController extends Controller
         $countPending = $counts['countPending'];
         $countApproved = $counts['countApproved'];
         $countRejected = $counts['countRejected'];
-        return view('staff.leave_history.approved_history', [
-            'approvedLeaves'=> $approvedLeaves,
+        $page = 2;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
             'leaveCount'=> $leaveCount,
             'countPending'=>$countPending,
             'countApproved'=>$countApproved,
-            'countRejected'=>$countRejected
+            'countRejected'=>$countRejected,
+            'page' => $page
         ]);
     }
 
     public function rejected_leave_history(){
 
         $emp_id = Auth::user()->id;
-        $rejectedLeaves = Tblleave::where('emp_id',$emp_id)
+        $leaves = Tblleave::where('emp_id',$emp_id)
             -> where('admin_remark',2)
             ->get();
         $counts = $this->leave_history_dashboard();
@@ -144,18 +151,109 @@ class StaffController extends Controller
         $countPending = $counts['countPending'];
         $countApproved = $counts['countApproved'];
         $countRejected = $counts['countRejected'];
-        return view('staff.leave_history.rejected_history', [
-            'rejectedLeaves'=>$rejectedLeaves,
+        $page = 3;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
             'leaveCount'=> $leaveCount,
             'countPending'=>$countPending,
             'countApproved'=>$countApproved,
-            'countRejected'=>$countRejected
+            'countRejected'=>$countRejected,
+            'page' => $page
+        ]);
+    }
+
+    public function annual_leave(){
+
+//        $emp_id = Auth::user()->id;
+        $leaves = Tblleave::where('emp_id',Auth::user()->id)
+            -> where('leave_type','Annual Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 4;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
         ]);
     }
 
 
+    public function medical_leave(){
 
+        $leaves = Tblleave::where('emp_id',Auth::user()->id)
+            ->where('leave_type','Medical Leave')
+            ->get();
 
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 5;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+    public function compensatory_leave(){
+
+        $leaves = Tblleave::where('emp_id', Auth::user()->id)
+            ->where('leave_type','Compensatory Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 6;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+    public function maternity_leave(){
+
+        $leaves = Tblleave::where('emp_id', Auth::user()->id)
+            ->where('leave_type','Maternity Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 7;
+
+        return view('staff.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
 
 
     public function view_leave_detail($id){
