@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HodController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -145,6 +146,7 @@ Route::middleware(['auth','staff'])->group(function () {
     });
 });
 
+route::get('/send',[MailController::class,'mail']);
 
 
 

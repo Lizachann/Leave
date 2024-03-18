@@ -45,6 +45,15 @@ class HodController extends Controller
             // Save the leave object
             $leave->save();
 
+
+// Message Body
+            $this -> mail (Auth::user()->email, 'Apply Leave',
+                Auth::user()->first_name . " " . Auth::user()->last_name . ", has applied for " . $leave->leave_type . " for " . $leave->request_days . " days \n" .
+                "From:     " . $leave->from_date . "\n" .
+                "To:       " . $leave->to_date . "\n" .
+                "Description: " . $leave->work_covered
+            );
+
             // Redirect with success message
             return redirect()->route('hod_view_leave_detail', ['id' => $leave->id])->with('success', 'Apply Leave successfully!');
         } catch (\Exception $e) {
@@ -349,6 +358,21 @@ class HodController extends Controller
                 'hod_remark' => (int)$request->input('hod_remark'),
                 'hod_date' => Carbon::now()->toDateString()
             ]);
+            $leave = Tblleave::findOrFail($id);
+            $emp_id = $leave->emp_id;
+            $employee = User::findOrFail($emp_id);
+            $email = $employee->email;
+            $subject = '';
+            $body = '';
+            if($leave->hod_remark == 1 ){
+                $body='Your Leave Application has been Approved by '.Auth::user()->first_name.' '.Auth::user()->last_name;
+                $subject='TAFTAC Leave Application APPROVED';
+            }else if($leave->hod_remark == 2 ){
+                $body='Your Leave Application has been Rejected by '.Auth::user()->first_name.' '.Auth::user()->last_name;
+                $subject='TAFTAC Leave Application REJECTED';
+            }
+
+            $this -> mail ($email, $subject,$body);
 
             // Set the success session variable
             return redirect()->back()->with('success', 'Change Status Approval successfully!');

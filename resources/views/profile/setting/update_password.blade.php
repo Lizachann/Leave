@@ -1,7 +1,7 @@
 <form method="post" action="{{ route('password.update') }}" >
     @csrf
     <div class="row form-wrap">
-        <h1 class="text-xl font-semibold text-[#4863A0] pb-4 ">Change Password</h1>
+        <h1 class="text-xl font-semibold text-[#4863A0] pb-4 pt-10 ">Change Password</h1>
         <div class="form-group   ">
             <label for="current_password" class="control-label mb-3 ">Current Password</label>
             <input id="current_password" name="current_password" type="password" class="mb-3 border border-black w-full rounded" autocomplete="current-password">

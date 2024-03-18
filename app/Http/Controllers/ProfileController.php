@@ -116,6 +116,13 @@ class ProfileController extends Controller
         $employee->dob = $request->input('dob');
         $employee->gender = $request->input('gender');
         $employee->address = $request->input('address');
+       if($employee->role == 'admin'){
+           $employee->email = $request->input('email');
+           $employee->department = $request->input('department');
+           $employee->position_staff = $request->input('position_staff');
+           $employee->role = $request->input('role');
+       }
+
 
         $employee->save();
 
@@ -152,16 +159,16 @@ class ProfileController extends Controller
 
         // Validate the uploaded file
         $request->validate([
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max size is 2MB (2048 KB)
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Max size is 2MB (2048 KB)
         ]);
 
 
-        // Check if file size exceeds the maximum allowed size
-        if ($request->file('profile')->getSize() >2048 * 1024 ) { // Convert KB to bytes
+//        // Check if file size exceeds the maximum allowed size
+        if ($request->file('profile')->getSize() >5120 * 1024 ) { // Convert KB to bytes
 
             return redirect()->back()->with('file_error', 'File size exceeds the maximum allowed limit of 2MB!');
         }
-
+//
         try{
             if ($profileImage) {
 

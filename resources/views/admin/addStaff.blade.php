@@ -62,10 +62,10 @@
 
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Staff ID</label>
-{{--                                            <input type="text" name="staff_ID" class="form-control rounded border-black" value="{{ $nextID }}">--}}
                                             <label class="form-control border-black bg-gray-200 h-10" >
                                                 {{ $nextID }}
                                             </label>
+                                            <input type="hidden" name="staff_ID" value="{{$nextID}}">
                                         </div>
 
                                         <div class="form-group required col-md-6 mt-4 ">
@@ -130,10 +130,16 @@
                     </div>
                 </div>
             </div>
-        @if (session('success'))
-            <script>
-                alert("{{ session('success') }}");
-            </script>
-        @endif
     </form>
 </x-app-layout>
+
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Staff added successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to add staff!');
+    @endif
+    var staff_ID = document.getElementById('staff_ID').textContent;
+</script>

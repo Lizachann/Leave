@@ -84,8 +84,9 @@
                         </div>
 
                         <div id="tab2" class="tabcontent">
-                         @include('profile.setting.update_password')
-                         @include('profile.setting.update_info')
+                            @include('profile.setting.update_info')
+                            @include('profile.setting.update_password')
+
                         </div>
                     </div>
                 </div>

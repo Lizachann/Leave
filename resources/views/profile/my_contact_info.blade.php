@@ -1,4 +1,4 @@
-<form action="{{ route('upload.profile') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('upload.profile') }}" method="POST" enctype="multipart/form-data" >
 @csrf
     <div class="flex justify-center ml-32 -mb-3 lg:-mb-5 md:-mb-5 ">
         <!-- Button to trigger modal -->

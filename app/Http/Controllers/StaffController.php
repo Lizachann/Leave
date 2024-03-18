@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-class StaffController extends Controller
+class StaffController extends MailController
 {
     public function applyLeave(){
         $leaves = Tblleave::where('emp_id', Auth::user()->id)->get();
@@ -36,6 +36,14 @@ class StaffController extends Controller
         $leave->emp_id = Auth::user()->id;
 
         $leave->save();
+
+// Message Body
+            $this -> mail (Auth::user()->email, 'Apply Leave',
+                Auth::user()->first_name . " " . Auth::user()->last_name . ", has applied for " . $leave->leave_type . " for " . $leave->request_days . " days \n" .
+                "From:     " . $leave->from_date . "\n" .
+                "To:       " . $leave->to_date . "\n" .
+                "Description: " . $leave->work_covered
+            );
 
         return redirect()->route('staff_view_leave_detail', ['id' => $leave->id])
             ->with('success', 'Apply Leave Successfully!!');

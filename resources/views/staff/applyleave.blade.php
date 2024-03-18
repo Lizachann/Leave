@@ -111,12 +111,15 @@
                 </div>
             </div>
         </div>
-        @if (session('success'))
-        <script>
-            // Show success alert
-            alert("{{ session('success') }}");
-        </script>
-        @endif
     </form>
 </x-app-layout>
 
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Apply Leave successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to Apply Leave!');
+    @endif
+</script>

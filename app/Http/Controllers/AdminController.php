@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class AdminController extends Controller
+class AdminController extends MailController
 {
     /**
      * Display the registration view.
@@ -23,6 +23,8 @@ class AdminController extends Controller
         $numericPart = (int)substr($currentID, 1); // Extract numeric part and convert to integer
         $nextNumericPart = $numericPart + 1; // Increment numeric part by 1
         $nextID = "G" . str_pad($nextNumericPart, strlen($currentID) - 1, "0", STR_PAD_LEFT);
+
+
 
         return view('admin.addStaff',[
             'nextID' => $nextID
@@ -57,7 +59,15 @@ class AdminController extends Controller
         $user = new User($validatedData);
 
         $user->staff_ID = $request->input('staff_ID');
+
         $user->save();
+
+        $email = $request->input('email');
+
+        // Message Body
+        $this -> mail ($email, 'Welcome To TAFTAC','You have been added to Leave system of TAFTAC');
+
+
 
         return redirect()->route('admin.addStaff')->with('success', 'User created successfully!');
     }
@@ -322,6 +332,20 @@ class AdminController extends Controller
 
             $employee->save();
             $leave->save();
+
+            $email = $employee->email;
+            $subject = '';
+            $body = '';
+            if($leave->admin_remark == 1 ){
+                $body='Your Leave Application has been Approved by Admin';
+                $subject='TAFTAC Leave Application APPROVED';
+            }else if($leave->admin_remark == 2 ){
+                $body='Your Leave Application has been Rejected by Admin';
+                $subject='TAFTAC Leave Application REJECTED';
+            }
+
+            $this -> mail ($email, $subject,$body);
+
 
             return redirect()->back()->with(
                 'success', 'Change Status Approval successfully!'
