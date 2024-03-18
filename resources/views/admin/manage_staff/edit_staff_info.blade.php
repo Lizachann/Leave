@@ -18,16 +18,13 @@
                                         <label class="control-label mb-2">Last Name</label>
                                         <input type="text" name="last_name" class="form-control rounded border-black" value="{{$employee->last_name}}" >
                                     </div>
-
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Phone Number</label>
                                         <input type="text" name="phone_num" class="form-control rounded border-black" value="{{$employee->phone_num}}" >
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">Email Address</label>
-                                        <label class="form-control border-black bg-gray-200 h-10" >
-                                            {{$employee->email }}
-                                        </label>
+                                        <input type="text" name="email" class="form-control rounded border-black" value="{{$employee->email}}" >
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">Staff ID</label>
@@ -37,9 +34,7 @@
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">Department</label>
-                                        <label class="form-control border-black bg-gray-200 h-10 " >
-                                            {{ $employee->department }}
-                                        </label>
+                                        <input type="text" name="department" class="form-control rounded border-black" value="{{$employee->department}}" >
                                     </div>
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Staff Position</label>
@@ -66,15 +61,12 @@
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">Leave Days Left</label>
-                                        <label class="form-control border-black bg-gray-200 h-10 " >
-                                            {{ $employee->av_leave }}
-                                        </label>
+                                        <input type="text" name="av_leave" class="form-control rounded border-black" value="{{$employee->av_leave}}" >
+
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">User Role</label>
-                                        <label class="form-control border-black bg-gray-200 h-10 mb-4" >
-                                            {{ $employee->role }}
-                                        </label>
+                                        <input type="text" name="role" class="form-control rounded border-black" value="{{$employee->role}}" >
                                     </div>
 
                                 </div>

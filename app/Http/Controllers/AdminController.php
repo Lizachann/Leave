@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tblleave;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -288,44 +289,47 @@ class AdminController extends Controller
 
     public function admin_approval(Request $request, $id)
     {
+        try{
+            $leave = Tblleave::findOrFail($id);
 
-        $leave = Tblleave::findOrFail($id);
+            $allLeaves = Tblleave::all();
 
-        $allLeaves = Tblleave::all();
+            $leave->admin_remark = (int)$request->input('admin_remark');
+            $leave->admin_date = Carbon::now()->toDateString();
+            $emp_id = $leave->emp_id;
 
-        $leave->admin_remark = (int)$request->input('admin_remark');
-        $leave->admin_date = Carbon::now()->toDateString();
-        $emp_id = $leave->emp_id;
+            $employee = User::findOrFail($emp_id);
 
-        $employee = User::findOrFail($emp_id);
-
-        if ($leave->admin_remark == 1 && $leave->leave_type === "Annual Leave") {
-            $leaveDays_left = $employee->av_leave - $leave->request_days;
-            $employee->av_leave = $leaveDays_left;
-            foreach ($allLeaves as $allLeave) {
-                $leaveId = $allLeave->emp_id;
-                if ($leaveId == $emp_id) {
-                    $allLeave->leaveDays_left = $leaveDays_left;
+            if ($leave->admin_remark == 1 && $leave->leave_type === "Annual Leave") {
+                $leaveDays_left = $employee->av_leave - $leave->request_days;
+                $employee->av_leave = $leaveDays_left;
+                foreach ($allLeaves as $allLeave) {
+                    $leaveId = $allLeave->emp_id;
+                    if ($leaveId == $emp_id) {
+                        $allLeave->leaveDays_left = $leaveDays_left;
+                    }
+                    $allLeave->save();
                 }
-                $allLeave->save();
-            }
-        } else {
-            foreach ($allLeaves as $allLeave) {
-                $leaveId = $allLeave->emp_id;
-                if ($leaveId == $emp_id) {
-                    $allLeave->leaveDays_left = $employee->av_leave;
+            } else {
+                foreach ($allLeaves as $allLeave) {
+                    $leaveId = $allLeave->emp_id;
+                    if ($leaveId == $emp_id) {
+                        $allLeave->leaveDays_left = $employee->av_leave;
+                    }
+                    $allLeave->save();
                 }
-                $allLeave->save();
             }
+
+            $employee->save();
+            $leave->save();
+
+            return redirect()->back()->with(
+                'success', 'Change Status Approval successfully!'
+            );
+        } catch (\Exception $e) {
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to Change Status Approval!');
         }
-
-        $employee->save();
-        $leave->save();
-
-        return redirect()->route('view_all_leave')->
-        with(
-            'success', 'Change Status Approval successfully!'
-        );
     }
 
     public function staff_detail( $id){
@@ -346,10 +350,17 @@ class AdminController extends Controller
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'phone_num' => $request->input('phone_num'),
+                'email'=> $request->input('email'),
+                'department'=> $request->input('department'),
                 'position_staff' => $request->input('position_staff'),
                 'gender' => $request->input('gender'),
                 'dob' => $request->input('dob'),
-                'address' => $request->input('address')
+                'address' => $request->input('address'),
+                'av_leave'=> $request->input('av_leave'),
+                'role'=> $request->input('role'),
+            ]);
+            Tblleave::where('emp_id',$id)->update([
+                'leaveDays_left' =>  $request->input('av_leave'),
             ]);
 
 
@@ -502,29 +513,54 @@ class AdminController extends Controller
             'page'=>$page,
         ]);
     }
+    public function delete_leave($id){
+        try {
+            // Find the leave record by ID
+            $leave = Tblleave::findOrFail($id);
+            // Delete the leave record
+            $leave->delete();
+            // Redirect back with success message
+            return redirect()->back()->with('success', 'Leave record deleted successfully!');
+        } catch (\Exception $e) {
+            // Handle any exceptions (e.g., if leave record not found)
+            return redirect()->back()->with('error', 'Failed to delete leave record!');
+        }
+    }
+
+    public function delete_staff($id){
+        try {
+            // Find the leave record by ID
+            $staff = User::findOrFail($id);
+            // Delete the leave record
+            $staff->delete();
+            // Redirect back with success message
+            return redirect()->back()->with('success', 'Staff deleted successfully!');
+        } catch (\Exception $e) {
+            // Handle any exceptions (e.g., if leave record not found)
+            return redirect()->back()->with('error', 'Failed to delete staff!');
+        }
+    }
+
+    public function update(Request $request, $id): RedirectResponse
+    {
+
+        // Validate the request
+        $validated = $request->validateWithBag('updatePassword', [
+            'password' => 'required|string|min:4',
+        ]);
+
+        // Find the user whose password needs to be updated
+        $user = User::findOrFail($id);
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->back()->with('success', 'Password updated successfully!');
+    }
 
 
-
-
-
-//        public function destroy($id)
-//        {
-//            try {
-//                // Find the leave record by ID
-//                $leave = Tblleave::findOrFail($id);
-//
-//                // Optionally, perform validation or authorization checks here
-//
-//                // Delete the leave record
-//                $leave->delete();
-//
-//                // Redirect back with success message
-//                return redirect()->back()->with('success', 'Leave record deleted successfully!');
-//            } catch (\Exception $e) {
-//                // Handle any exceptions (e.g., if leave record not found)
-//                return redirect()->back()->with('error', 'Failed to delete leave record: ' . $e->getMessage());
-//            }
-//        }
 
 
 

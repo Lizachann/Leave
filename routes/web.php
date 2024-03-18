@@ -52,8 +52,13 @@ Route::middleware(['auth','admin'])->group(function () {
         route::get('/admin/approved/leave','view_approved_leave')->name('admin_approved_staff_leave');
         route::get('/admin/rejected/leave','view_rejected_leave')->name('admin_rejected_staff_leave');
 
-        route::get('/admin/leave_detail/%&{id}$','view_leave_detail')->name('admin_view_leave_detail');
-        route::post('/admin/leave_detail/%&{id}$','admin_approval')->name('admin_approval');
+        route::get('/admin/leave_detail/{id}','view_leave_detail')->name('admin_view_leave_detail');
+        route::post('/admin/leave_detail/{id}','admin_approval')->name('admin_approval');
+
+        Route::delete('/delete/leave/{id}', 'delete_leave')->name('delete_leave');
+        Route::delete('/delete/staff/{id}', 'delete_staff')->name('delete_staff');
+
+        route::post('/admin/staff/{id}','update')->name('admin_pw_update');
 
         //leave type
         route::get('/admin/leave/annual','annual_leave')->name('admin_annual');
@@ -108,6 +113,9 @@ Route::middleware(['auth','hod'])->group(function () {
         route::get('/hod/manage/staff','view_staff')->name('view_staff');
         route::get('/hod/staff{id}info','staff_detail')->name('staff_detail');
         route::post('/hod/staff{id}info','edit_staff_detail')->name('edit_staff_detail');
+
+        route::post('/hod/staff/{id}','update')->name('hod_pw_update');
+
     });
 });
 

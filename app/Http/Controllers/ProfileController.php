@@ -125,6 +125,8 @@ class ProfileController extends Controller
         );
     }
 
+
+
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validateWithBag('updatePassword', [
@@ -141,6 +143,7 @@ class ProfileController extends Controller
             'success' , 'Password updated successfully!'
         );
     }
+
 
     public function store(Request $request) {
 

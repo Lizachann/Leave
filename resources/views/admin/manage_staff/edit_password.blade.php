@@ -1,5 +1,5 @@
-<form method="post" action="{{ route('password.update') }}" >
-    @csrf
+<form method="post" action="{{ route('admin_pw_update', [$id]) }}">
+@csrf
 
     <div class="container apply-form pt-2 sm:px-10 lg:px-20" >
         <div class="row">

@@ -534,6 +534,25 @@ class HodController extends Controller
         }
     }
 
+    public function update(Request $request, $id): RedirectResponse
+    {
+
+        // Validate the request
+        $validated = $request->validateWithBag('updatePassword', [
+            'password' => 'required|string|min:4',
+        ]);
+
+        // Find the user whose password needs to be updated
+        $user = User::findOrFail($id);
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->back()->with('success', 'Password updated successfully!');
+    }
+
 
 
 

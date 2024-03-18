@@ -91,7 +91,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($employees as $employee)
+                @foreach($employees as $index => $employee)
 
                     <tr>
                         <td >
@@ -117,15 +117,41 @@
                                         </svg>
                                     </a>
                                 </button>
-                                <form>
-                                    <button class=" bg-red-600 ml-5 px-2.5 py-1 rounded te" >
-                                        <a href=""  >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" bi bi-trash w-5 h-5 " viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                            </svg>
-                                        </a>
+                                <!-- Use a unique modal ID for each row -->
+                                @php $modalId = 'exampleModal_' . $index; @endphp
+
+                                <form action="{{ route('delete_staff',['id' => $employee->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+
+                                    <button type="button" class="bg-red-600 ml-5 px-2.5 py-1 rounded te" data-bs-toggle="modal" data-bs-target="#{{ $modalId }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" bi bi-trash w-5 h-5 " viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                        </svg>
                                     </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered"> <!-- Changed class to modal-dialog-centered -->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-xl font-semibold  pt-10" id="exampleModalLabel"> Are you sure you want to delete "
+                                                        {{$employee->last_name}} {{$employee->first_name}}
+                                                        "?</h5>
+                                                    <button type="button" class="-mt-10 hover:bg-gray-300" data-bs-dismiss="modal" aria-label="Close">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle w-5 h-5" viewBox="0 0 16 16">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn bg-gray-200 hover:bg-blue-200 bg-blue-600" data-bs-dismiss="modal">No</button>
+                                                    <button type="submit" class="btn bg-gray-200 hover:bg-red-200 bg-red-600">Yes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </td>
@@ -138,5 +164,13 @@
     </div>
 </x-app-layout>
 
-
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Staff deleted successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to delete staff!');
+    @endif
+</script>
 

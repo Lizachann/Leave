@@ -198,14 +198,19 @@
                 </div>
             </div>
         </div>
-            @if (session('success'))
-                <script>
-                    alert("{{ session('success') }}");
-                </script>
-            @endif
     </form>
         @endforeach
     @endforeach
 
 </x-app-layout>
+
+<script>
+    // Check if there is a success message in the session
+    @if(session('success'))
+    showSuccessAlert('Change Status Approval successfully!');
+    @endif
+    @if(session('error'))
+    showErrorAlert('Failed to Change Status Approval!');
+    @endif
+</script>
 
