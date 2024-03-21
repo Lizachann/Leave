@@ -73,7 +73,6 @@
                                         </select>
                                         {{--                                        </form>--}}
                                     </div>
-
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">From Date</label>
                                         <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="dd/mm/yyyy" data-date-format='dd/mm/yyyy'>

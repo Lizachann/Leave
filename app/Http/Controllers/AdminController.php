@@ -592,19 +592,17 @@ class AdminController extends MailController
     {
 
         try {
-            // Validate the request
-            $validated = $request->validateWithBag('updatePassword', [
+            $validatedData = $request->validate([
                 'password' => 'required|string|min:4',
             ]);
 
             // Find the user whose password needs to be updated
             $user = User::findOrFail($id);
-
             // Update the user's password
-            $user->update([
-                'password' => Hash::make($validated['password']),
-            ]);
 
+            $user->update([
+                'password' => Hash::make($validatedData['password']),
+            ]);
 
             return redirect()->back()->with('successPw', 'Successfully Update Staff Password!');
         }

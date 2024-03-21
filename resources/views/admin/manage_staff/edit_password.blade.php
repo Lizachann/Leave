@@ -10,15 +10,27 @@
                             {{ __("Edit Staff Password") }}
                         </div>
                         <div class="row form-wrap">
-                            <div class="form-group   ">
-                                <label for="current_password" class="control-label mb-3 ">Current Password</label>
-                                <input id="current_password" name="current_password" type="password" class="mb-3 border border-black w-full rounded" autocomplete="current-password">
-                                <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2 mb-3" />
-                            </div>
+{{--                            <div class="form-group   ">--}}
+{{--                                <label for="current_password" class="control-label mb-3 ">Current Password</label>--}}
+{{--                                <input id="current_password" name="current_password" type="password" class="mb-3 border border-black w-full rounded" autocomplete="current-password">--}}
+{{--                                @if ($errors->has('current_password'))--}}
+{{--                                    <div class="mt-2 text-sm text-red-600 space-y-1">--}}
+{{--                                        @foreach ($errors->get('current_password') as $error)--}}
+{{--                                            <span>{{ $error }}</span><br>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
                             <div class="form-group ">
                                 <label for="password" class="control-label mb-3 ">New Password</label>
                                 <input id="password" name="password" type="text" class="border border-black w-full rounded mb-3" autocomplete="new-password">
-                                <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2 mb-3" />
+                                @if ($errors->has('password'))
+                                    <div class="mt-2 text-sm text-red-600 space-y-1">
+                                        @foreach ($errors->get('password') as $error)
+                                            <span>{{ $error }}</span><br>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-3 mt-8">

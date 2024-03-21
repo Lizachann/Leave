@@ -135,9 +135,11 @@
                             @endif
                         @endforeach
                 </span>
+                <div  class="flex justify-center">
+                    <button onclick="readMore1()" id="myBtn1">Read more</button>
+                </div>
                 @endif
             </div>
-            <button onclick="readMore1()" id="myBtn1">Read more</button>
         </div>
     </div>
 

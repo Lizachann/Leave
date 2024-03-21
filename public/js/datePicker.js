@@ -29,7 +29,7 @@ $(document).ready(function() {
     });
 
     $("#end_date").datepicker({
-    dateFormat: 'd/m/Y', // Set date format
+    // dateFormat: 'd/m/Y', // Set date format
     changeMonth: true,       // Allow changing of months
     changeYear: true,        // Allow changing of years
     yearRange: '1900:2100'   ,// Set range of selectable years
