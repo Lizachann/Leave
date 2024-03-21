@@ -111,7 +111,7 @@
                     @endif
                 @endforeach
 
-                <span id="dots"></span><span id="more">
+                <span id="dots1"></span><span id="more1" style="display: none">
  {{--                Admin department --}}
                 <div class="pb-3 pl-4 text-l leading-tight font-semibold text-blue-800 ">
                     Admin department
@@ -288,7 +288,7 @@
                     @endforeach
                 </span>
             </div>
-            <button onclick="myFunction()" id="myBtn">Read more</button>
+            <button onclick="readMore1()" id="myBtn1">Read more</button>
         </div>
     </div>
 </div>

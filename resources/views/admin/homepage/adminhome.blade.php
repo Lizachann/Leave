@@ -26,7 +26,7 @@
             <div class="card contact-support  ">
                 <div class="card-body -mt-14 -mx-5">
                     <div class=" py-4 text-xl leading-tight font-semibold">
-                        {{ __("My Leave History") }}
+                        {{ __("Staff Leave History") }}
                     </div>
                     <div id="chart_div4"></div>
                 </div>
@@ -36,7 +36,7 @@
             <div class="card contact-support">
                 <div class="card-body -mt-14 -mx-5 ">
                     <div class=" py-4 text-xl leading-tight font-semibold">
-                        {{ __("Staff Leave History") }}
+                        {{ __("All Staff By Department") }}
                     </div>
                     <div id="chart_div5"></div>
                 </div>
