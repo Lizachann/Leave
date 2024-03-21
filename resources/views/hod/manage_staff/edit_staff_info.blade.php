@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Date Of Birth</label>
-                                        <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::parse($employee->dob)->format('d M Y') }}">
+                                        <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::createFromFormat('d/m/Y', $employee->dob)->format('d M Y') }} " data-date-format='dd M yyyy'>
                                     </div>
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Gender</label>

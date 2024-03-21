@@ -96,8 +96,8 @@
                 @foreach($leaves as $leave)
                     <tr>
                         <td > {{$leave->leave_type}} </td>
-                        <td>{{ \Carbon\Carbon::parse($leave->from_date)->format('d-m-Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($leave->to_date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->from_date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->to_date)->format('d-m-Y') }}</td>
                         <td>{{$leave->request_days}}</td>
                         <td>
                             @if($leave->hod_remark == 0)

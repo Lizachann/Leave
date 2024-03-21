@@ -21,8 +21,6 @@
         </div>
     </div>
 
-{{--    @include('hod.homepage.dashboard')--}}
-
     <div class="flex justify-center lg:px-40 ">
             <div class="container apply-form max-w-7xl mx-auto  ">
                 <div class="card contact-support  ">

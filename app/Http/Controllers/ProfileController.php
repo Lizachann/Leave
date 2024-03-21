@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -108,34 +109,42 @@ class ProfileController extends Controller
 
     public function setting(Request $request){
 
-        $employee = User::findOrFail(Auth::user()->id);
-
-        $employee->first_name = $request->input('first_name');
-        $employee->last_name = $request->input('last_name');
-        $employee->phone_num = $request->input('phone_num');
-        $employee->dob = $request->input('dob');
-        $employee->gender = $request->input('gender');
-        $employee->address = $request->input('address');
-       if($employee->role == 'admin'){
-           $employee->email = $request->input('email');
-           $employee->department = $request->input('department');
-           $employee->position_staff = $request->input('position_staff');
-           $employee->role = $request->input('role');
-       }
 
 
-        $employee->save();
+        try{
+            $validatedData = $request->validate([
+                'email' => 'required|string|max:255|email|unique:users,email']);
+            $employee = User::findOrFail(Auth::user()->id);
+            $employee->email = $validatedData['email'];
+            $employee->first_name = $request->input('first_name');
+            $employee->last_name = $request->input('last_name');
+            $employee->phone_num = $request->input('phone_num');
+            $employee->dob = $request->input('dob');
+            $employee->gender = $request->input('gender');
+            $employee->address = $request->input('address');
+           if($employee->role == 'admin'){
+               $employee->email = $request->input('email');
+               $employee->department = $request->input('department');
+               $employee->position_staff = $request->input('position_staff');
+               $employee->role = $request->input('role');
+           }
 
-        return redirect()->route('profile') ->
-        with(
-            'success' , 'Change Status Approval successfully!'
-        );
+
+            $employee->save();
+
+        return redirect()->route('profile') ->with('success' , 'Edit Your Information!');
+        }
+        catch (ValidationException|\Exception $e) {
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to Change My Information!');
+        }
     }
 
 
 
     public function update(Request $request): RedirectResponse
     {
+        try{
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => 'required|string|min:4',
@@ -145,14 +154,19 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->back() ->
-        with(
-            'success' , 'Password updated successfully!'
-        );
+        return redirect()->back()->with('successPw', 'Successfully Update Staff Password!');
+    }
+        catch (ValidationException|\Exception $e) {
+            // Handle validation errors
+        return redirect()->back()->with('errorPw', 'Failed to Update Staff Password!');
+        }
+
     }
 
 
     public function store(Request $request) {
+
+        try {
 
         $userId = Auth::id();
         $profileImage = $request->file('profile');
@@ -168,9 +182,8 @@ class ProfileController extends Controller
 
             return redirect()->back()->with('file_error', 'File size exceeds the maximum allowed limit of 2MB!');
         }
-//
-        try{
-            if ($profileImage) {
+
+        if ($profileImage) {
 
                 // Get the existing profile image path for the user
                 $existingProfilePath = User::where('id', $userId)->value('profile');
@@ -189,11 +202,10 @@ class ProfileController extends Controller
                 User::where('id', $userId)->update(['profile' => $profileImagePath]);
             }
 
-            return redirect()->back()->with('success', 'Profile Uploaded successfully!');
-        } catch (\Exception $e) {
-
+            return redirect()->back()->with('success_uploadImg', 'Profile Uploaded successfully!');
+        } catch (ValidationException|\Exception $e) {
             // Redirect back with error message
-            return redirect()->back()->with('error', 'Failed to Uploaded Profile!');
+            return redirect()->back()->with('error_uploadImg', 'Failed to Uploaded Profile!');
         }
     }
 

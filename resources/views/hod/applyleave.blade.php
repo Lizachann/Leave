@@ -2,7 +2,7 @@
     <form method="POST" action="{{ route('hod.applyLeave.store') }}">
         @csrf
 
-{{--    header--}}
+        {{--    header--}}
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 -mt-5 ">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -63,25 +63,25 @@
 
                                     <div class="form-group required my-2 ">
                                         <label class="control-label mb-2">Leave Type</label>
-                                            <select name="leave_type" class="rounded-lg focus:ring-blue-500
+                                        <select name="leave_type" class="rounded-lg focus:ring-blue-500
                                             focus:border-blue-500 block w-full p-2.5 border border-black" required autocomplete="off" >
-                                                <option value="" >Select Leave Type </option>
-                                                <option value="Annual Leave">Annual Leave</option>
-                                                <option value="Medical Leave">Medical Leave</option>
-                                                <option value="Compensatory Leave">Compensatory Leave</option>
-                                                <option value="Maternity Leave">Maternity Leave</option>
-                                            </select>
-{{--                                        </form>--}}
+                                            <option value="" >Select Leave Type </option>
+                                            <option value="Annual Leave">Annual Leave</option>
+                                            <option value="Medical Leave">Medical Leave</option>
+                                            <option value="Compensatory Leave">Compensatory Leave</option>
+                                            <option value="Maternity Leave">Maternity Leave</option>
+                                        </select>
+                                        {{--                                        </form>--}}
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">From Date</label>
-                                        <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="mm/dd/yyyy ">
+                                        <input required type="text" id="start_date" name="from_date" class=" border border-black w-full  rounded" placeholder="dd/mm/yyyy" data-date-format='dd/mm/yyyy'>
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 ">To Date</label>
-                                        <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="mm/dd/yyyy">
+                                        <input required type="text" id="end_date" name="to_date" class="border border-black w-full rounded" placeholder="dd/mm/yyyy" data-date-format='dd/mm/yyyy'>
                                     </div>
 
                                     <div class="form-group required col-md-6 my-2 ">
@@ -102,8 +102,7 @@
 
                                 </div>
                                 <div class="flex mt-8 justify-between items-center x">
-                                    <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply  </button>
-{{--                                    {{ dd(session('success')) }}--}}
+                                    <button type="submit"  class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Apply</button>
                                 </div>
                             </form>
                         </div>
@@ -113,13 +112,13 @@
         </div>
     </form>
 </x-app-layout>
+
 <script>
     // Check if there is a success message in the session
     @if(session('success'))
     showSuccessAlert('Apply Leave successfully!');
     @endif
     @if(session('error'))
-    showErrorAlert('Failed to apply leave data!');
+    showErrorAlert('Failed to Apply Leave!');
     @endif
-
 </script>

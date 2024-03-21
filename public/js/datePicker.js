@@ -1,15 +1,14 @@
 $(document).ready(function() {
 
     $("#datepicker").datepicker({
-        dateFormat: 'd/m/Y', // Set date format
-        changeMonth: true,       // Allow changing of months
-        changeYear: true,        // Allow changing of years
-        yearRange: '1900:2100'   // Set range of selectable years
+        // dateFormat: 'dd M yy',  // Set initial date format
+        changeMonth: true,      // Allow changing of months
+        changeYear: true,       // Allow changing of years
+        yearRange: '1900:2100', // Set range of selectable years
     });
 
-
     $("#start_date").datepicker({
-        dateFormat: 'd/m/Y', // Set date format
+        // dateFormat: 'd/m/Y', // Set date format
         changeMonth: true,       // Allow changing of months
         changeYear: true,        // Allow changing of years
         yearRange: '1900:2100',  // Set range of selectable years
@@ -28,7 +27,6 @@ $(document).ready(function() {
             $('#end_date').datepicker('setDate', startDate);
         }
     });
-
 
     $("#end_date").datepicker({
     dateFormat: 'd/m/Y', // Set date format

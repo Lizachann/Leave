@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
-class HodController extends Controller
+class HodController extends MailController
 {
 
     public function applyLeave(){
@@ -23,6 +24,7 @@ class HodController extends Controller
 
     public function store_applyLeave(Request $request)
     {
+        try {
         // Validate the request data
         $validatedData = $request->validate([
             'leave_type' => ['required', 'string', 'max:255'],
@@ -31,8 +33,6 @@ class HodController extends Controller
             'to_date' => ['required', 'string', 'max:255'],
             'work_covered' => ['required', 'string', 'max:255'],
         ]);
-
-        try {
             // Create a new leave object with validated data
             $leave = new Tblleave($validatedData);
 
@@ -56,7 +56,9 @@ class HodController extends Controller
 
             // Redirect with success message
             return redirect()->route('hod_view_leave_detail', ['id' => $leave->id])->with('success', 'Apply Leave successfully!');
-        } catch (\Exception $e) {
+
+        }
+        catch (ValidationException|\Exception $e) {
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to apply leave data!');
         }
@@ -354,29 +356,32 @@ class HodController extends Controller
     public function hod_approval(Request $request, $id){
         try {
 
-            Tblleave::where('id', $id)->update([
-                'hod_remark' => (int)$request->input('hod_remark'),
-                'hod_date' => Carbon::now()->toDateString()
-            ]);
             $leave = Tblleave::findOrFail($id);
             $emp_id = $leave->emp_id;
             $employee = User::findOrFail($emp_id);
             $email = $employee->email;
             $subject = '';
             $body = '';
-            if($leave->hod_remark == 1 ){
+            $remark = (int)$request->input('hod_remark') ;
+            if($remark == 1 ){
                 $body='Your Leave Application has been Approved by '.Auth::user()->first_name.' '.Auth::user()->last_name;
                 $subject='TAFTAC Leave Application APPROVED';
-            }else if($leave->hod_remark == 2 ){
+            }else if($remark == 2 ){
                 $body='Your Leave Application has been Rejected by '.Auth::user()->first_name.' '.Auth::user()->last_name;
                 $subject='TAFTAC Leave Application REJECTED';
             }
 
-            $this -> mail ($email, $subject,$body);
+           if($this->mail($email, $subject, $body)){
+               Tblleave::where('id', $id)->update([
+                   'hod_remark' => $remark,
+                   'hod_date' => Carbon::now()->toDateString()
+               ]);
+           }
 
             // Set the success session variable
             return redirect()->back()->with('success', 'Change Status Approval successfully!');
-        } catch (\Exception $e) {
+        }
+        catch (ValidationException|\Exception $e) {
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to Change Status Approval!');
         }
@@ -501,6 +506,99 @@ class HodController extends Controller
     }
 
 
+    public function history_annual_leave(){
+
+        $leaves = Tblleave::where('emp_id',Auth::user()->id)
+            -> where('leave_type','Annual Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 4;
+
+        return view('hod.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+
+    public function history_medical_leave(){
+
+        $leaves = Tblleave::where('emp_id',Auth::user()->id)
+            ->where('leave_type','Medical Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 5;
+
+        return view('hod.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+    public function history_compensatory_leave(){
+
+        $leaves = Tblleave::where('emp_id', Auth::user()->id)
+            ->where('leave_type','Compensatory Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 6;
+
+        return view('hod.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+    public function history_maternity_leave(){
+
+        $leaves = Tblleave::where('emp_id', Auth::user()->id)
+            ->where('leave_type','Maternity Leave')
+            ->get();
+
+        $counts = $this->leave_history_dashboard();
+        $leaveCount = $counts['leaveCount'];
+        $countPending = $counts['countPending'];
+        $countApproved = $counts['countApproved'];
+        $countRejected = $counts['countRejected'];
+        $page = 7;
+
+        return view('hod.leave_history.leave_history', [
+            'leaves' => $leaves,
+            'leaveCount'=> $leaveCount,
+            'countPending'=>$countPending,
+            'countApproved'=>$countApproved,
+            'countRejected'=>$countRejected,
+            'page' => $page,
+        ]);
+    }
+
+
+
     public function view_staff(){
 
         $departments = Auth::User()->department;
@@ -539,7 +637,6 @@ class HodController extends Controller
 
     public function edit_staff_detail(Request $request, $id){
         try {
-
             User::where('id', $id)->update([
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
@@ -552,7 +649,7 @@ class HodController extends Controller
 
 
             return redirect()->back()->with('success', 'Edit Staff Information successfully!');
-        } catch (\Exception $e) {
+        } catch (ValidationException|\Exception $e) {
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to Change Staff Information!');
         }
@@ -561,23 +658,28 @@ class HodController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
 
-        // Validate the request
-        $validated = $request->validateWithBag('updatePassword', [
-            'password' => 'required|string|min:4',
-        ]);
+        try {
+            // Validate the request
+            $validated = $request->validateWithBag('updatePassword', [
+                'password' => 'required|string|min:4',
+            ]);
 
-        // Find the user whose password needs to be updated
-        $user = User::findOrFail($id);
+            // Find the user whose password needs to be updated
+            $user = User::findOrFail($id);
 
-        // Update the user's password
-        $user->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+            // Update the user's password
+            $user->update([
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        return redirect()->back()->with('success', 'Password updated successfully!');
+
+            return redirect()->back()->with('successPw', 'Successfully Update Staff Password!');
+        }
+        catch (ValidationException|\Exception $e) {
+            // Handle validation errors
+            return redirect()->back()->with('errorPw', 'Failed to Update Staff Password!');
+        }
     }
-
-
 
 
 

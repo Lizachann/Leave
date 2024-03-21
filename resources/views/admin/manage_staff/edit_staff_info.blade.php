@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Date Of Birth</label>
-                                        <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::parse($employee->dob)->format('d M Y') }}">
+                                        <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::createFromFormat('d/m/Y', $employee->dob)->format('d M Y') }} " data-date-format='dd M yyyy'>
                                     </div>
                                     <div class="form-group col-md-4 mt-4 ">
                                         <label class="control-label mb-2 ">Gender</label>
@@ -66,9 +66,23 @@
                                     </div>
                                     <div class="form-group col-md-4 mt-4">
                                         <label class="control-label mb-2">User Role</label>
-                                        <input type="text" name="role" class="form-control rounded border-black" value="{{$employee->role}}" >
+                                        <select name="role" class="rounded-lg focus:ring-blue-500
+                                                focus:border-blue-500 block w-full p-2.5 border border-black h-10 mb-4" >
+                                            <option value="{{$employee->role}}">
+                                                @if($employee->role == 'admin')
+                                                    Admin
+                                                @elseif($employee->role == 'staff')
+                                                    Staff
+                                                @elseif($employee->role == 'hod')
+                                                    Head Department
+                                                @endif
+                                            </option>
+                                            <option value="admin">Admin</option>
+                                            <option value="hod">Head Department</option>
+                                            <option value="hod">Staff</option>
+                                        </select>
+{{--                                        <input type="text" name="role" class="form-control rounded border-black" value="{{$employee->role}}" >--}}
                                     </div>
-
                                 </div>
                             <div class="col-md-3 mt-8">
                                 <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 ">Update Information</button>

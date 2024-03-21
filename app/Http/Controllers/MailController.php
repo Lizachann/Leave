@@ -18,34 +18,17 @@ class MailController extends Controller
         try {
 
             Mail::to($email)->send(new SendMail($data));
-            return response()->json('great check email box');
-        }catch (\Exception $th){
-            return response()->json('something went wrong!');
+            return true;
+        }catch (\Exception $e){
+            // If email sending fails, log the error
+//            Log::error('Failed to send email: ' . $e->getMessage());
 
+            // Set session error message
+//            session()->flash('error', 'Failed to send email.');
+
+            // Return false to indicate failure
+            return false;
         }
     }
-//
-//    public function mailFromStaff($subject,$body){
-//        $data = [
-//            'subject' => $subject,
-//            'body' => $body
-//        ];
-//
-//        try {
-////            Mail::send('emails.from_staff', $data, function($message) use ($subject) {
-////                $message->from(Auth::user()->email, Auth::user()->first_name . ' ' . Auth::user()->last_name)
-////                    ->to('testlaravelterm4@gmail.com')
-////                    ->subject($subject);
-////            });
-//
-//            Mail::to('')->send(new SendMail($data));
-//
-//            return response()->json('great check email box');
-//        } catch (\Exception $th) {
-//            return response()->json('something went wrong!');
-//        }
-
-//    }
-
 
 }

@@ -107,11 +107,11 @@
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 font-semibold">Leave Period</label>
-                                        <label class="form-control border-black bg-gray-200 h-10" >
+                                        <label class="form-control border-black bg-gray-200" >
                                             <label class="font-semibold">From </label>
-                                            {{ $leave->from_date }}
+                                            {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->from_date)->format('d M Y') }}
                                             <label class="font-semibold">To</label>
-                                            {{$leave->to_date}}
+                                            {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->to_date)->format('d M Y') }}
                                         </label>
                                     </div>
 

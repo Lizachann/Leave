@@ -7,6 +7,7 @@ use App\Models\Tblleave;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 
 class StaffController extends MailController
@@ -19,40 +20,58 @@ class StaffController extends MailController
         ]);
     }
 
-    public function store_applyLeave(Request $request){
+    public function store_applyLeave(Request $request)
 
+    {try {
         $validatedData = $request->validate([
             'leave_type' => ['required', 'string', 'max:255'],
             'request_days' => ['required', 'string', 'max:255'],
             'from_date' => ['required', 'string', 'max:255'],
             'to_date' => ['required', 'string', 'max:255'],
             'work_covered' => ['required', 'string', 'max:255'],
-
         ]);
-        try{
 
-        $leave = new Tblleave($validatedData);
-        $leave->leaveDays_left = Auth::user()->av_leave;
-        $leave->emp_id = Auth::user()->id;
-
-        $leave->save();
-
-// Message Body
-            $this -> mail (Auth::user()->email, 'Apply Leave',
-                Auth::user()->first_name . " " . Auth::user()->last_name . ", has applied for " . $leave->leave_type . " for " . $leave->request_days . " days \n" .
+            // Save leave data to the database
+            $leave = new Tblleave($validatedData);
+            $leave->leaveDays_left = Auth::user()->av_leave;
+            $leave->emp_id = Auth::user()->id;
+            $leave->save();
+//
+            $hods = User::where('department', Auth::user()->department)
+                ->where('role', 'hod')
+                ->get();
+        foreach ($hods as $hod) {
+            $hodemail = $hod->email;
+            // Perform any actions with the email address, such as sending an email
+        }
+            // Send email between staff and admin
+          $this->mail(
+                Auth::user()->email,
+                'Apply Leave',
+                Auth::user()->first_name . " " . Auth::user()->last_name . ", has applied for " . $leave->request_days . " days " . $leave->leave_type .
+                " From:     " . $leave->from_date . "\n" .
+                "To:       " . $leave->to_date . "\n" .
+                "Description: " . $leave->work_covered
+            );
+            // Send email between admin and hod
+            $this->mail(
+                $hodemail,
+                'Apply Leave',
+                Auth::user()->first_name . " " . Auth::user()->last_name . ", has applied for " . $leave->request_days . " days " . $leave->leave_type .
                 "From:     " . $leave->from_date . "\n" .
                 "To:       " . $leave->to_date . "\n" .
                 "Description: " . $leave->work_covered
             );
 
-        return redirect()->route('staff_view_leave_detail', ['id' => $leave->id])
-            ->with('success', 'Apply Leave Successfully!!');
+            // If both leave saving and email sending are successful
+        return redirect()->route('staff_view_leave_detail', ['id' => $leave->id])->with('success', 'Apply Leave successfully!');
 
-        } catch (\Exception $e) {
-    // Redirect back with error message
-        return redirect()->back()->with('error', 'Failed to apply leave data!');
+    } catch (ValidationException | \Exception $e) {
+            // Redirect back with error message if any error occurs
+            return redirect()->back()->with('error', 'Failed to apply leave data!');
         }
     }
+
 
 
     public function leave_history_dashboard(){

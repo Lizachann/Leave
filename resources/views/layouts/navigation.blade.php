@@ -4,8 +4,8 @@
         <div class="flex justify-between h-16 ">
             <div class="flex " >
 
-                <!-- nav to open side bar-->
-                <div class=" h-20 flex justify-between items-center">
+                <!-- nav to open sidebar-->
+                <div class=" h-20 flex justify-between items-center ">
                     <button class="btn text-white hover:bg-blue-700 mb-3 text-4xl ml-[2%] " type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" fdprocessedid="l3j8mi">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-text-right"
@@ -21,7 +21,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger" >
-                        <button class="inline-flex items-center px-3 py-2 text-lg leading-4 font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 text-lg font-medium rounded-md text-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }} </div>
                             <div class="image-container rounded-full object-cover w-10 h-10 ml-5">
                                 <!-- If profile picture exists, display it with the same size -->

@@ -18,11 +18,11 @@
             <p class=" text-md font-normal text-gray-700 ml-5 mb-2">
                 From
                 <label class="font-semibold">
-                    {{ \Carbon\Carbon::parse($leave->from_date)->format('d M Y') }}
+                    {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->from_date)->format('d M Y') }}
                 </label>
                 To
                 <label class="font-semibold">
-                    {{ \Carbon\Carbon::parse($leave->to_date)->format('d M Y') }}
+                    {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->to_date)->format('d M Y') }}
                 </label>
             </p>
             @if($leave->admin_remark === 0 )

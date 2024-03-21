@@ -8,14 +8,14 @@
         </div>
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3">Last Name</label>
-            <input type="text" name="last_name" class="form-control rounded border-black" value="{{Auth::User()->last_name}}" >
+            <input type="text" name="last_name" class="form-control rounded border-black " value="{{Auth::User()->last_name}}" >
         </div>
         <div class="form-group  col-md-6 mt-4">
             <label class="control-label mb-3">Email Address</label>
             @if(Auth::user()->role == 'admin')
                 <input type="text" name="email" class="form-control rounded border-black" value="{{Auth::User()->email}}" >
             @else
-            <label class="form-control border-black bg-gray-200 h-10" >
+            <label class="form-control border-black bg-gray-200 "  >
                 {{ Auth::user()->email }}
             </label>
             @endif
@@ -30,12 +30,13 @@
 
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3 ">Phone Number</label>
-            <input type="text" name="phone_num" class="form-control rounded border-black" value="{{Auth::User()->phone_num}}" >
+            <input type="text" name="phone_num" class="form-control rounded border-black h-9" value="{{Auth::User()->phone_num}}" >
         </div>
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3 ">Date Of Birth</label>
-            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::parse(Auth::User()->dob)->format('d M Y') }}">
+            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" value="{{ \Carbon\Carbon::createFromFormat('d/m/Y', Auth::User()->dob)->format('d M Y') }} " data-date-format='dd M yyyy'>
         </div>
+
         <div class="form-group col-md-6 mt-4 ">
             <label class="control-label mb-3 ">Gender</label>
             <select name="gender" class="rounded-lg focus:ring-blue-500

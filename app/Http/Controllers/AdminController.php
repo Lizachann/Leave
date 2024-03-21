@@ -10,25 +10,34 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 
 class AdminController extends MailController
 {
     /**
      * Display the registration view.
      */
+
+    //auto generate ID
+//    public function addStaff()
+//    {
+//        $currentID = User::latest()->value('staff_ID');
+//        $numericPart = (int)substr($currentID, 1); // Extract numeric part and convert to integer
+//        $nextNumericPart = $numericPart + 1; // Increment numeric part by 1
+//        $nextID = "G" . str_pad($nextNumericPart, strlen($currentID) - 1, "0", STR_PAD_LEFT);
+//
+//
+//
+//        return view('admin.addStaff',[
+//            'nextID' => $nextID
+//        ]);
+//    }
+
     public function addStaff()
     {
-        $currentID = User::latest()->value('staff_ID');
-        $numericPart = (int)substr($currentID, 1); // Extract numeric part and convert to integer
-        $nextNumericPart = $numericPart + 1; // Increment numeric part by 1
-        $nextID = "G" . str_pad($nextNumericPart, strlen($currentID) - 1, "0", STR_PAD_LEFT);
-
-
-
-        return view('admin.addStaff',[
-            'nextID' => $nextID
-        ]);
+        return view('admin.addStaff');
     }
 
     /**
@@ -39,38 +48,48 @@ class AdminController extends MailController
 
     public function storeAddStaff(Request $request)
     {
-        $validatedData = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => 'required|string|max:255|email|unique:users,email',
-            'password' => 'required|string|min:4',
-            'position_staff' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'string', 'max:255'],
-            'dob' => ['required', 'string', 'max:255'],
-            'department' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'av_leave' => ['required', 'string', 'max:255'],
-            'phone_num' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'email' => 'required|string|max:255|email|unique:users,email',
+                'password' => 'required|string|min:4',
+                'position_staff' => ['required', 'string', 'max:255'],
+                'gender' => ['required', 'string', 'max:255'],
+                'dob' => ['required', 'string', 'max:255'],
+                'department' => ['required', 'string', 'max:255'],
+                'address' => ['required', 'string', 'max:255'],
+                'av_leave' => ['required', 'string', 'max:255'],
+                'phone_num' => ['required', 'string', 'max:255'],
+                'role' => ['required', 'string', 'max:255'],
+                //not auto generate ID
+                'staff_ID' =>'required|string|max:255|unique:users',
+            ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+            $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $user = new User($validatedData);
+            $user = new User($validatedData);
+            $user->save();
 
-        $user->staff_ID = $request->input('staff_ID');
+//            // Send verification email
+//            $user->sendEmailVerificationNotification();
 
-        $user->save();
+            $email = $request->input('email');
 
-        $email = $request->input('email');
+            // Message Body
+            $this->mail($email, 'Welcome To TAFTAC', 'You have been added to Leave system of TAFTAC');
 
-        // Message Body
-        $this -> mail ($email, 'Welcome To TAFTAC','You have been added to Leave system of TAFTAC');
-
-
-
-        return redirect()->route('admin.addStaff')->with('success', 'User created successfully!');
+            return redirect()->route('admin.addStaff')->with('success', 'User created successfully!');
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return redirect()->back()->with('errorValidation','Something Wrong With Validation!!');
+        }
+        catch (\Exception $e) {
+            // Redirect back with error message for other exceptions
+            return redirect()->route('admin.addStaff')->with('error', 'Failed to add staff!');
+        }
     }
+
 
 
     public function staff_leave_dashboard(){
@@ -346,11 +365,11 @@ class AdminController extends MailController
 
             $this -> mail ($email, $subject,$body);
 
-
             return redirect()->back()->with(
                 'success', 'Change Status Approval successfully!'
             );
-        } catch (\Exception $e) {
+        }
+        catch (ValidationException | \Exception $e) {
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to Change Status Approval!');
         }
@@ -370,6 +389,10 @@ class AdminController extends MailController
     public function edit_staff_detail(Request $request, $id){
         try {
 
+            $user = User::findOrFail($id);
+            $request->validate([
+                'email' => 'required|string|max:255|email|unique:users,email,' . $user->id,
+            ]);
             User::where('id', $id)->update([
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
@@ -389,7 +412,7 @@ class AdminController extends MailController
 
 
             return redirect()->back()->with('success', 'Edit Staff Information successfully!');
-        } catch (\Exception $e) {
+        } catch (ValidationException|\Exception $e) {
             // Redirect back with error message
             return redirect()->back()->with('error', 'Failed to Change Staff Information!');
         }
@@ -568,24 +591,28 @@ class AdminController extends MailController
     public function update(Request $request, $id): RedirectResponse
     {
 
-        // Validate the request
-        $validated = $request->validateWithBag('updatePassword', [
-            'password' => 'required|string|min:4',
-        ]);
+        try {
+            // Validate the request
+            $validated = $request->validateWithBag('updatePassword', [
+                'password' => 'required|string|min:4',
+            ]);
 
-        // Find the user whose password needs to be updated
-        $user = User::findOrFail($id);
+            // Find the user whose password needs to be updated
+            $user = User::findOrFail($id);
 
-        // Update the user's password
-        $user->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+            // Update the user's password
+            $user->update([
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        return redirect()->back()->with('success', 'Password updated successfully!');
+
+            return redirect()->back()->with('successPw', 'Successfully Update Staff Password!');
+        }
+        catch (ValidationException|\Exception $e) {
+            // Handle validation errors
+            return redirect()->back()->with('errorPw', 'Failed to Update Staff Password!');
+        }
     }
-
-
-
 
 
 }

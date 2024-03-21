@@ -94,7 +94,7 @@
                             @endif
                         @endforeach
                         <td> {{$leave->leave_type}} </td>
-                        <td>{{$leave->created_at}} </td>
+                        <td>{{ \Carbon\Carbon::parse($leave->created_at)->format('Y-m-d') }}</td>
                         <td>
                             @if($leave->hod_remark == 0)
                                 <h1 class="text-yellow-600 font-semibold">Pending</h1>

@@ -35,7 +35,7 @@
                 <div class="card contact-support">
                     <div class="card-body -mt-14 lg:-mx-16 ">
                         <div class="tab flex border-b border-blue-500 ">
-                            <div class="dropdown lg:w-[23%] md:w-[23%] sm:w-[23%] w-[46%] hover:bg-[#DBE9FA] "  >
+                            <div class="dropdown lg:w-[23%] md:w-[23%] sm:w-[23%] w-[46%] hover:bg-[#DBE9FA] -button"  >
                                 <button type="button" class="dropbtn flex justify-center " >
                                     <h1 class="font-semibold">Leave Record</h1>
                                     <span class=" pt-1 ml-3">
@@ -52,8 +52,8 @@
                                     <button type="button" class="tablinks" onclick="openTab(event, 'tab1_4')">Rejected Record</button>
                                 </div>
                             </div>
-                            <div class="lg:w-[15%] md:w-[15%] sm:w-[15%] w-[30%] flex justify-center">
-                                <button type="button" class="tablinks w-full second-button font-semibold" onclick="openTab(event, 'tab2')">Setting</button>
+                            <div class="lg:w-[15%] md:w-[15%] sm:w-[15%] w-[30%] flex justify-center second-button">
+                                <button type="button" class="tablinks w-full font-semibold" onclick="openTab(event, 'tab2')">Setting</button>
                             </div>
                         </div>
 
@@ -97,13 +97,25 @@
 <script>
     // Check if there is a success message in the session
     @if(session('success'))
-    showSuccessAlert('Edit Staff Information successfully!');
+    showSuccessAlert('Edit My Information successfully!');
     @endif
     @if(session('error'))
-    showErrorAlert('Failed to Change Staff Information!');
+    showErrorAlert('Failed to Change My Information!');
+    @endif
+    @if(session('successPw'))
+    showSuccessAlert('Successfully Update My Password!');
+    @endif
+    @if(session('errorPw'))
+    showErrorAlert('Failed to Update My Password!');
+    @endif
+    @if(session('success_uploadImg'))
+    showSuccessAlert('Profile Picture Uploaded successfully!');
+    @endif
+    @if(session('error_uploadImg'))
+    showErrorAlert('Failed to Uploaded Profile Picture!');
     @endif
     @if(session('file_error'))
-    showErrorAlert('File size exceeds the maximum allowed limit of 2MB!');
+    showErrorAlert('File size exceeds the maximum allowed limit of 5MB!');
     @endif
 
 </script>

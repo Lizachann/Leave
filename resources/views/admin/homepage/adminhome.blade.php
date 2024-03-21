@@ -34,7 +34,7 @@
         </div>
         <div class="container apply-form max-w-7xl mx-auto lg:pb-20 pb-10 lg:mt-0 mt-10">
             <div class="card contact-support">
-                <div class="card-body -mt-14 lg:-mx-16">
+                <div class="card-body -mt-14 -mx-5 ">
                     <div class=" py-4 text-xl leading-tight font-semibold">
                         {{ __("Staff Leave History") }}
                     </div>

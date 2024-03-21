@@ -25,16 +25,29 @@ function openTab(evt, tabName) {
     if (dropdownButton && dropdownButton.classList.contains('active')) {
         dropdownButton.classList.remove('active');
     }
-    if (dropdownButton && tabName === 'tab1_1' || tabName === 'tab1_2' || tabName === 'tab1_3'|| tabName === 'tab1_4') {
+    if (dropdownButton && tabName === 'tab1_1' || tabName === 'tab1_2' || tabName === 'tab1_3'|| tabName === 'tab1_4' ) {
         dropdownButton.style.borderBottom = '2px solid darkblue';
         dropdownButton.style.color = 'darkblue';
-    } else {
+    }
+    else {
         dropdownButton.style.borderBottom = '';
         dropdownButton.style.color = ''; // Reset the color
     }
+    var setting = document.querySelector('.second-button ');
+    if (setting && setting.classList.contains('active')) {
+        setting.classList.remove('active');
+    }
+    if(setting && tabName === 'tab2'){
+        setting.style.borderBottom = '2px solid darkblue';
+        setting.style.color = 'darkblue';
+    }
+    else {
+        setting.style.borderBottom = '';
+        setting.style.color = ''; // Reset the color
+    }
 }
 function initializeTabs() {
-    openTab(null, 'tab1_1');
+    openTab(null, 'tab2');
 }
 
 document.addEventListener('DOMContentLoaded', function() {

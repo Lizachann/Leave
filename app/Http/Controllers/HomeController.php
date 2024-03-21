@@ -29,6 +29,8 @@ class HomeController extends Controller
         $allLeave = Tblleave::all()->count();
         $female = User::where('gender', 'Female')->count();
         $allHods = User::where('role', 'hod')->get();
+        $admin = User::where('role','admin')->get();
+        $staffCount = $same_departments->count();
 
 
         if(Auth::id()){
@@ -58,6 +60,8 @@ class HomeController extends Controller
                     'hods' => $hods ,
                     'same_departments' => $same_departments,
                     'staffs' => $staffs,
+                    'allAdmins'=>$admin,
+                    'staffCount'=>$staffCount,
 
 
                 ]);
@@ -97,6 +101,7 @@ class HomeController extends Controller
                 $hodCount = User::where('role', 'hod')->count();
                 $allStaff = User::where('role', 'staff')->count();
 
+                $staffOnly = User::where('role', 'staff')->get();
 
                 return view('admin.homepage.adminhome',[
                     'allEmployee' => $allEmployee,
@@ -105,7 +110,8 @@ class HomeController extends Controller
                     'allStaff'=>$allStaff,
                     'hods' => $allHods ,
                     'same_departments' => $same_departments,
-                    'staffs' => $staffs,
+                    'staffs' => $staffOnly,
+                    'allAdmins'=>$admin,
                     'admin'=>$adminCount,
                     'labour'=>$labourCount,
                     'it'=>$itCount,
@@ -155,6 +161,9 @@ class HomeController extends Controller
                     'hods' => $allHods ,
                     'same_departments' => $same_departments,
                     'staffs' => $staffs,
+                    'allAdmins'=>$admin,
+                    'staffCount'=>$staffCount,
+
                 ]);
             }
         }

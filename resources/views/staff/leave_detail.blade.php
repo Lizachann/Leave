@@ -84,8 +84,7 @@
                                             <div class="form-group required col-md-4 my-2 ">
                                                 <label class="control-label mb-2 font-semibold">Applied Date</label>
                                                 <label class="form-control border-black bg-gray-200" >
-                                                    {{ $leave->created_at }}
-
+                                                    {{ \Carbon\Carbon::parse($leave->created_at)->format('Y-m-d') }}
                                                 </label>
                                             </div>
 
@@ -105,14 +104,13 @@
                                                 </label>
                                             </div>
 
-
                                             <div class="form-group required col-md-6 my-2 ">
                                                 <label class="control-label mb-2 font-semibold">Leave Period</label>
                                                 <label class="form-control border-black bg-gray-200" >
                                                     <label class="font-semibold">From </label>
-                                                    {{ $leave->from_date }}
+                                                    {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->from_date)->format('d M Y') }}
                                                     <label class="font-semibold">To</label>
-                                                    {{$leave->to_date}}
+                                                    {{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->to_date)->format('d M Y') }}
                                                 </label>
                                             </div>
 
@@ -121,7 +119,6 @@
                                                 <label class="control-label mb-2 font-semibold">Email</label>
                                                 <label class="form-control border-black bg-gray-200" >
                                                     {{ $employee->email }}
-
                                                 </label>
                                             </div>
 
@@ -165,7 +162,7 @@
                                                     @if($leave->hod_date == 0 )
                                                         N/A
                                                     @else
-                                                        {{ $leave->hod_date}}
+                                                        {{$leave->hod_date}}
                                                     @endif
                                                 </label>
                                             </div>

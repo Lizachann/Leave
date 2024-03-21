@@ -62,10 +62,13 @@
 
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Staff ID</label>
-                                            <label class="form-control border-black bg-gray-200 h-10" >
-                                                {{ $nextID }}
-                                            </label>
-                                            <input type="hidden" name="staff_ID" value="{{$nextID}}">
+                                            <input type="text" name="staff_ID" class="form-control rounded border-black" required placeholder="">
+
+{{--                                            auto generate ID--}}
+{{--                                            <label class="form-control border-black bg-gray-200 h-10" >--}}
+{{--                                                {{ $nextID }}--}}
+{{--                                            </label>--}}
+{{--                                            <input type="hidden" name="staff_ID" value="{{$nextID}}">--}}
                                         </div>
 
                                         <div class="form-group required col-md-6 mt-4 ">
@@ -84,7 +87,7 @@
                                         </div>
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Date Of Birth</label>
-                                            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" required placeholder="Select Date">
+                                            <input type="text" id="datepicker" name="dob" class="border border-black w-full rounded" required placeholder="Select Date" data-date-format='dd/mm/yyyy'>
                                         </div>
                                         <div class="form-group required col-md-6 mt-4 ">
                                             <label class="control-label mb-3 ">Address</label>
@@ -113,7 +116,7 @@
                                             <label class="control-label mb-3 ">User role</label>
 {{--                                            <input type="text" name="role" class="form-control rounded border-black" required placeholder="">--}}
                                              <select name="role" class="rounded-lg focus:ring-blue-500
-                                        focus:border-blue-500 block w-full p-2.5 border border-black" required >
+                                        focus:border-blue-500 block w-full p-2.5 border border-black mb-3" required >
                                                     <option value="">Select Role </option>
                                                     <option value="admin">Admin</option>
                                                     <option value="hod">Head Department</option>
@@ -134,12 +137,16 @@
 </x-app-layout>
 
 <script>
-    // Check if there is a success message in the session
+
+    {{--     Check if there is a success message in the session--}}
     @if(session('success'))
-    showSuccessAlert('Staff added successfully!');
+        showSuccessAlert('Staff added successfully!');
     @endif
     @if(session('error'))
-    showErrorAlert('Failed to add staff!');
+        showErrorAlert('Failed to add staff!');
     @endif
-    var staff_ID = document.getElementById('staff_ID').textContent;
-</script>
+    @if(session('errorValidation'))
+        showErrorAlert('Something Wrong With Validation!');
+    @endif
+
+    </script>

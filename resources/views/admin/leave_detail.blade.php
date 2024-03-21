@@ -180,7 +180,7 @@
 
                                     <div class="form-group required col-md-6 my-2 ">
                                         <label class="control-label mb-2 font-semibold">Date for Admin's Approval</label>
-                                        <label class="form-control border-black bg-gray-200 h-10" >
+                                        <label class="form-control border-black bg-gray-200 h-10 mb-3" >
                                             @if($leave->admin_date == 0 )
                                                 N/A
                                             @else
@@ -188,9 +188,9 @@
                                             @endif
                                         </label>
                                     </div>
-                                    <div class="flex mt-8 justify-between items-center x">
-                                       <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Changed Statues</button>
-                                    </div>
+                                </div>
+                                <div class="flex mt-8 justify-between items-center">
+                                    <button type="submit" class="btn text-md text-white hover:bg-blue-950 bg-blue-800 px-10 py-2 ">Changed Statues</button>
                                 </div>
                             </form>
                         </div>

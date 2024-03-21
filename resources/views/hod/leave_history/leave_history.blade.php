@@ -12,8 +12,15 @@
                         My Approved Leave History
                     @elseif($page == 3)
                         My Rejected Leave History
+                    @elseif($page == 4)
+                        Annual Leave
+                    @elseif($page == 5)
+                        Medical Leave
+                    @elseif($page == 6)
+                        Compensatory Leave
+                    @elseif($page == 7)
+                        Maternity Leave
                     @endif
-
                 </div>
                 <div class="px-9 pt-3 pb-3 text-l leading-tight ">
                     <a href="/home">
@@ -31,7 +38,37 @@
 {{--    dashboard--}}
     <div class="-mt-14">
         @include('hod.leave_history.leave_history_dashboard')
+    </div>
 
+    {{--    leave type--}}
+
+    <div class=" container apply-form pt-2 lg:pl-20 pl-14 -mt-8 mb-3" >
+        <div class="col-md-12">
+            <div class=" contact-support -mt-8">
+                <div class="row form-wrap  ">
+                    <div class="col-lg-3 col-md-6 w-fit mt-8  ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5  rounded" href="{{route('hod_history_annual')}}">
+                            Annual Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5  rounded" href="{{route('hod_history_medical')}}">
+                            Medical Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2 mr-5 rounded" href="{{route('hod_history_compensatory')}}">
+                            Compensatory Leave
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 w-fit mt-8 ">
+                        <a class=" bn border bg-gray-300 px-5 py-2  mr-5 rounded" href="{{route('hod_history_maternity')}}">
+                            Maternity Leave
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{--    show all leave history --}}
@@ -55,8 +92,8 @@
                 @foreach($leaves as $leave)
                     <tr>
                         <td > {{$leave->leave_type}} </td>
-                        <td>{{ \Carbon\Carbon::parse($leave->from_date)->format('d-m-Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($leave->to_date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->from_date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::createFromFormat('d/m/Y', $leave->to_date)->format('d-m-Y') }}</td>
                         <td>{{$leave->request_days}}</td>
                         <td>
                             @if($leave->hod_remark == 0)

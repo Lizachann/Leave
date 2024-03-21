@@ -237,7 +237,7 @@ function drawChart4() {
 
     // Create options for the chart
     var options = {
-        width: 500, // Set chart width to 100% of container
+        width: 450, // Set chart width to 100% of container
         height: 300, // Set chart height to 100% of container
         colors: ['#f6ce07', '#00ad00', '#FF0000']
     };
@@ -248,11 +248,14 @@ function drawChart4() {
         var windowWidth = window.innerWidth;
 
         // Adjust chart dimensions based on screen size
-        if (windowWidth < 1200) { // If screen width is less than 768px (sm)
+        if(windowWidth < 400) {
+            options.width = 250; // Set chart width for small screens
+            options.height = 100; // Set chart height for small screens
+        }else if (windowWidth < 1200) { // If screen width is less than 768px (sm)
             options.width = 350; // Set chart width for small screens
             options.height = 200; // Set chart height for small screens
         } else { // If screen width is 768px or larger (lg)
-            options.width = 500; // Set chart width for large screens
+            options.width = 450; // Set chart width for large screens
             options.height = 300; // Set chart height for large screens
         }
 
@@ -309,7 +312,7 @@ function drawChart5() {
 
     // Create options for the chart
     var options = {
-        width: 500, // Set chart width to 100% of container
+        width: 450, // Set chart width to 100% of container
         height: 300, // Set chart height to 100% of container
         colors: ['#004CF6', '#8824ff', '#BE0000','#ff25d3','#00A628','#EFFF02']
     };
@@ -320,11 +323,14 @@ function drawChart5() {
         var windowWidth = window.innerWidth;
 
         // Adjust chart dimensions based on screen size
-        if (windowWidth < 1200) { // If screen width is less than 768px (sm)
+        if(windowWidth < 400) {
+            options.width = 250; // Set chart width for small screens
+            options.height = 100; // Set chart height for small screens
+        }else if (windowWidth < 1200) { // If screen width is less than 768px (sm)
             options.width = 350; // Set chart width for small screens
             options.height = 200; // Set chart height for small screens
         } else { // If screen width is 768px or larger (lg)
-            options.width = 500; // Set chart width for large screens
+            options.width = 450; // Set chart width for large screens
             options.height = 300; // Set chart height for large screens
         }
 

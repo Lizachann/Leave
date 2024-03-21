@@ -31,7 +31,7 @@ class SendMail extends Mailable
 
     public function build()
     {
-        return $this->from('testlaravelterm4@gmail.com', 'AFTAC Leave Application')
+        return $this->from('testlaravelterm4@gmail.com', 'TAFTAC Leave Application')
             ->subject($this->data['subject'])
             ->view('emails.index')
             ->with('data', $this->data);

@@ -34,5 +34,12 @@
     @if(session('error'))
     showErrorAlert('Failed to Change Staff Information!');
     @endif
+    @if(session('successPw'))
+    showSuccessAlert('Successfully Update Staff Password!');
+    @endif
+    @if(session('errorPw'))
+    showErrorAlert('Failed to Update Staff Password!');
+    @endif
+
 
 </script>

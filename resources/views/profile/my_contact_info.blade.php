@@ -8,7 +8,7 @@
     </div>
     <div class="flex justify-center">
         <!-- Image container with default size -->
-        <div class="image-container rounded-full object-cover w-44 h-44 sm:w-32 sm:h-32 lg:mb-5 mb-4">
+        <div class="image-container rounded-full object-cover lg:w-44 lg:h-44 sm:w-32 sm:h-32 w-20 h-20 lg:mb-5 mb-4">
             <!-- If profile picture exists, display it with the same size -->
             @if (Auth::user()->profile)
                 <img src="{{ asset('storage/' . Auth::user()->profile) }}" alt="Profile" class="rounded-full object-cover w-full h-full">
